@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,61 +26,74 @@ namespace CCodeAI
             ChatDatas.Add(new ChatData() { Who = EWho.PlugIn, Content = "遇事不决，问AI。" });
             cChatList.ItemsSource = ChatDatas;
             RichTextBox r = new RichTextBox();
-           
+
         }
 
         //代码解释
-        public async Task CodeExplain(string code)
+        public async Task CodeExplain(string code, string extension)
         {
             ChatData userChatData = new ChatData()
             {
                 Who = EWho.User,
                 Content = $"""
-                C#代码
+                {GetCodeType(extension)}代码
                 {code}
                 解释代码逻辑
                 """
             };
 
-            var chatData = await AskAIAsync(userChatData);
+            await AskAIAsync(userChatData);
         }
 
         //注释代码
-        public async Task CodeNote(string code)
+        public async Task CodeNote(string code, string extension)
         {
             ChatData userChatData = new ChatData()
             {
                 Who = EWho.User,
                 Content = $"""
-                C#代码
+                {GetCodeType(extension)}代码
                 {code}
                 添加代码注释
                 """
             };
 
-            var chatData = await AskAIAsync(userChatData);
+            await AskAIAsync(userChatData);
         }
 
         //注释代码
-        public async Task CodeOptimize(string code)
+        public async Task CodeOptimize(string code, string extension)
         {
             ChatData userChatData = new ChatData()
             {
                 Who = EWho.User,
                 Content = $"""
-                C#代码
+                {GetCodeType(extension)}代码
                 {code}
                 优化代码
                 """
             };
 
-            var chatData = await AskAIAsync(userChatData);
+            await AskAIAsync(userChatData);
         }
+
+        public string GetCodeType(string extension)
+        {
+            return extension switch
+            {
+                ".cs" => "C#",
+                ".js" => "JavaScript",
+                ".ts" => "TypeScript",
+                ".cpp" => "C++",
+                _ => ""
+            };
+        }
+
 
         //代码加入提问框
         public async Task CodeAddAsk(string code)
         {
-            cSendText.Text = code.Trim()+"\r\n";
+            cSendText.Text = code.Trim() + "\r\n";
         }
 
         private async void cAskBtn_Click(object sender, RoutedEventArgs e)
@@ -91,10 +105,9 @@ namespace CCodeAI
                 Content = cSendText.Text
             };
             cSendText.Text = "";
-            var chatData = await AskAIAsync(userChatData);
-           
-        }
+            await AskAIAsync(userChatData);
 
+        }
 
         public void RefreshChatData()
         {
@@ -115,56 +128,68 @@ namespace CCodeAI
             cAskBtn.Content = "发送";
         }
 
-        private async Task<ChatData> AskAIAsync(ChatData userChatData, int length = 1)
+        private async Task AskAIAsync(ChatData userChatData, int length = 1)
         {
             AiLoading();
-            StringBuilder prompt = new StringBuilder();
-            ChatDatas.Add(userChatData);
-            RefreshChatData();
 
-            var count = length;
-            var promptTokens = 0;
-            for (int i = ChatDatas.Count - 1; i >= 0 && count > 0; i--)
+            try
             {
-                count--;
-                if (ChatDatas[i].Who == EWho.PlugIn) continue;
-                prompt.Append(ChatDatas[i].ToPrompt());
-                promptTokens += ChatDatas[i].Tokens;
+                StringBuilder prompt = new StringBuilder();
+                ChatDatas.Add(userChatData);
+                RefreshChatData();
+
+                var count = length;
+                var promptTokens = 0;
+                for (int i = ChatDatas.Count - 1; i >= 0 && count > 0; i--)
+                {
+                    count--;
+                    if (ChatDatas[i].Who == EWho.PlugIn) continue;
+                    prompt.Append(ChatDatas[i].ToPrompt());
+                    promptTokens += ChatDatas[i].Tokens;
+                }
+                prompt.Append("<|im_start|>assistant");
+
+                GptRequest request = new GptRequest
+                {
+                    prompt = prompt.ToString(),
+                    max_tokens = 1200,
+                    temperature = 0.7,
+                    frequency_penalty = 0,
+                    presence_penalty = 0,
+                    top_p = 0.95,
+                    stop = new string[] { "<|im_end|>" }
+                };
+
+                using HttpClient httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Add("api-key", AzureConfig.AppKey);
+
+                string url = "https://ccode.openai.azure.com/openai/deployments/gpt-35-turbo/completions?api-version=2022-12-01";
+
+                var httpResponse = await httpClient.PostAsJsonAsync(url, request);
+                TextCompletion response = await httpResponse.Content.ReadFromJsonAsync<TextCompletion>();
+                var chatData = new ChatData()
+                {
+                    Who = EWho.Assistant,
+                    Content = response?.choices.FirstOrDefault()?.text?.Trim(new char[] { '\n' }),
+                    Tokens = response.usage.completion_tokens,
+                };
+
+                userChatData.Tokens = response.usage.prompt_tokens - promptTokens;
+                ChatDatas.Add(chatData);
             }
-            prompt.Append("<|im_start|>assistant");
-
-            GptRequest request = new GptRequest
+            catch (Exception ex)
             {
-                prompt = prompt.ToString(),
-                max_tokens = 1200,
-                temperature = 0.7,
-                frequency_penalty = 0,
-                presence_penalty = 0,
-                top_p = 0.95,
-                stop = new string[] { "<|im_end|>" }
-            };
-
-            using HttpClient httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("api-key", AzureConfig.AppKey);
-
-            string url = "https://ccode.openai.azure.com/openai/deployments/gpt-35-turbo/completions?api-version=2022-12-01";
-
-            var httpResponse = await httpClient.PostAsJsonAsync(url, request);
-            TextCompletion response = await httpResponse.Content.ReadFromJsonAsync<TextCompletion>();
-            var chatData = new ChatData()
-            {
-                Who = EWho.Assistant,
-                Content = response?.choices.FirstOrDefault()?.text?.Trim(new char[] { '\n' }),
-                Tokens = response.usage.completion_tokens,
-            };
-
-            userChatData.Tokens = response.usage.prompt_tokens - promptTokens;
-
-            ChatDatas.Add(chatData);
+                ChatDatas.Add(new ChatData()
+                {
+                    Who = EWho.PlugIn,
+                    Content = $"请求发生异常：{ex.Message}"
+                }); 
+            }
+     
             RefreshChatData();
             AiLoaded();
 
-            return chatData;
+         
         }
 
         private void cClearBtn_Click(object sender, RoutedEventArgs e)

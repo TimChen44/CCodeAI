@@ -3,6 +3,7 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
+using System.IO;
 
 namespace CCodeAI
 {
@@ -14,7 +15,6 @@ namespace CCodeAI
         {
             DocumentView docView = await VS.Documents.GetActiveDocumentViewAsync();
             if (docView?.TextView == null) return; //not a text window
-            SnapshotPoint position = docView.TextView.Caret.Position.BufferPosition;
 
             var selection = docView?.TextView.Selection;
             SnapshotSpan selectedSpan = selection.StreamSelectionSpan.SnapshotSpan;
@@ -30,7 +30,7 @@ namespace CCodeAI
 
             var toolWindows = ((CCodeExplainWindowControl)tool.Content);
 
-            await toolWindows.CodeNote(selectedText);
+            await toolWindows.CodeNote(selectedText, Path.GetExtension(docView.FilePath));
         }
     }
 }
