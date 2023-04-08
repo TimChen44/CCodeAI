@@ -19,7 +19,6 @@ namespace CCodeAI
         {
             this.RegisterToolWindows();
             await this.RegisterCommandsAsync();
-         
         }
     }
 }

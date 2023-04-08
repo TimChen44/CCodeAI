@@ -77,6 +77,23 @@ namespace CCodeAI
             await AskAIAsync(userChatData);
         }
 
+        //续写代码
+        public async Task<ChatData> ContinuationCode(string code, string extension)
+        {
+            ChatData userChatData = new ChatData()
+            {
+                Who = EWho.User,
+                Content = $"""
+                {GetCodeType(extension)}代码
+                {code}
+                根据注释续写代码，只需要返回新写的代码，不要返回其他内容。
+                """
+            };
+
+            return await AskAIAsync(userChatData);
+
+        }
+
         public string GetCodeType(string extension)
         {
             return extension switch
@@ -128,10 +145,11 @@ namespace CCodeAI
             cAskBtn.Content = "发送";
         }
 
-        private async Task AskAIAsync(ChatData userChatData, int length = 1)
+        private async Task<ChatData> AskAIAsync(ChatData userChatData, int length = 1)
         {
             AiLoading();
 
+            ChatData chatData = null;
             try
             {
                 StringBuilder prompt = new StringBuilder();
@@ -167,7 +185,7 @@ namespace CCodeAI
 
                 var httpResponse = await httpClient.PostAsJsonAsync(url, request);
                 TextCompletion response = await httpResponse.Content.ReadFromJsonAsync<TextCompletion>();
-                var chatData = new ChatData()
+                chatData = new ChatData()
                 {
                     Who = EWho.Assistant,
                     Content = response?.choices.FirstOrDefault()?.text?.Trim(new char[] { '\n' }),
@@ -182,14 +200,14 @@ namespace CCodeAI
                 ChatDatas.Add(new ChatData()
                 {
                     Who = EWho.PlugIn,
-                    Content = $"请求发生异常：{ex.Message}"
-                }); 
+                    Content = $"请求发生异常：{ex.ToString()}"
+                });
             }
-     
+
             RefreshChatData();
             AiLoaded();
 
-         
+            return chatData;
         }
 
         private void cClearBtn_Click(object sender, RoutedEventArgs e)

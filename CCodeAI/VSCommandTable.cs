@@ -26,6 +26,7 @@ namespace CCodeAI
         public const int CCodeNoteCommandId = 0x1022;
         public const int CCodeOptimizeCommandId = 0x1023;
         public const int CCodeAddAskCommandId = 0x1024;
+        public const int CCodeContinuationCodeCommandId = 0x1025;
         public const int CCodeAICommandId = 0x2001;
     }
 }

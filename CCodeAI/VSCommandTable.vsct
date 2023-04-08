@@ -58,6 +58,15 @@
 					<ButtonText>优化代码</ButtonText>
 				</Strings>
 			</Button>
+			
+						<Button guid="CCodeAI" id="CCodeContinuationCodeCommandId" priority="0x0100" type="Button">
+				<Parent guid="CCodeAI" id="CCodeGroup" />
+				<Icon guid="ImageCatalogGuid" id="Writeable" />
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<Strings>
+					<ButtonText>根据注释续写代码</ButtonText>
+				</Strings>
+			</Button>
 
 			<Button guid="CCodeAI" id="CCodeAddAskCommandId" priority="0x0100" type="Button">
 				<Parent guid="CCodeAI" id="CCodeGroup" />
@@ -78,6 +87,8 @@
 			<IDSymbol name="CCodeNoteCommandId" value="0x1022" />
 			<IDSymbol name="CCodeOptimizeCommandId" value="0x1023" />
 			<IDSymbol name="CCodeAddAskCommandId" value="0x1024" />
+			<IDSymbol name="CCodeContinuationCodeCommandId" value="0x1025" />
+			
 			<IDSymbol name="CCodeAICommandId" value="0x2001" />
 		</GuidSymbol>
 	</Symbols>
