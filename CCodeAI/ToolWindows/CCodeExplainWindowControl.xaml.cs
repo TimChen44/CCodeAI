@@ -137,12 +137,14 @@ namespace CCodeAI
         public void AiLoading()
         {
             cAskBtn.IsEnabled = false;
-            cAskBtn.Content = "咨询中";
+            cProgressBar.Visibility = Visibility.Visible;
+            cProgressBar.IsIndeterminate = true;
         }
         public void AiLoaded()
         {
             cAskBtn.IsEnabled = true;
-            cAskBtn.Content = "发送";
+            cProgressBar.IsIndeterminate = false;
+            cProgressBar.Visibility = Visibility.Collapsed;
         }
 
         private async Task<ChatData> AskAIAsync(ChatData userChatData, int length = 1)
