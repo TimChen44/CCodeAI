@@ -1,7 +1,6 @@
-﻿using CCodeAI.Common;
+﻿using CCodeAI.Extensions;
+using CCodeAI.ViewModels;
 using EnvDTE;
-using EnvDTE80;
-using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
 using System.IO;
 
@@ -32,7 +31,10 @@ namespace CCodeAI
 
                 var toolWindows = ((CCodeExplainWindowControl)tool.Content);
 
-                await toolWindows.CodeOptimize(selectedText, Path.GetExtension(docView.FilePath));
+                await toolWindows.VM.CodeSkillAsync(
+                    selectedText,
+                    CodeExtension.GetCodeType(Path.GetExtension(docView.FilePath)),
+                    CodeSemanticFunctions.CodeOptimize);
             }
             catch (Exception ex)
             {

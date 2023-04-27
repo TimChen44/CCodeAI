@@ -1,7 +1,6 @@
-﻿using CCodeAI.Common;
+﻿using CCodeAI.Extensions;
+using CCodeAI.ViewModels;
 using EnvDTE;
-using EnvDTE80;
-using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
 using System.IO;
 
@@ -32,17 +31,20 @@ namespace CCodeAI
 
                 var toolWindows = ((CCodeExplainWindowControl)tool.Content);
 
-                var chatData = await toolWindows.ContinuationCode(selectedText, Path.GetExtension(docView.FilePath));
+                var chatData = await toolWindows.VM.CodeSkillAsync(
+                    selectedText,
+                    CodeExtension.GetCodeType(Path.GetExtension(docView.FilePath)),
+                    CodeSemanticFunctions.ContinuationCode);
 
                 if (chatData == null) return;
 
-                docView.TextBuffer.Insert(selection.End.Position, "\r\n" + chatData.Content.Trim('`'));
+                docView.TextBuffer.Insert(selection.End.Position, "\r\n" + chatData.Trim('`'));
 
             }
             catch (Exception ex)
             {
+                VS.MessageBox.ShowError(ex.Message);
             }
-
         }
     }
 }
