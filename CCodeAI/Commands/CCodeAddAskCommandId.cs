@@ -32,7 +32,7 @@ namespace CCodeAI
 
                 var toolWindows = ((CCodeExplainWindowControl)tool.Content);
 
-                await toolWindows.CodeAddAsk(selectedText);
+                toolWindows.VM.Question += selectedText;
 
             }
             catch (Exception ex)
