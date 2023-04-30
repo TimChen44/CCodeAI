@@ -11,7 +11,7 @@ namespace CCodeAI
         public const string Name = "CCodeAI";
         public const string Description = @"Help you understand and optimize the code";
         public const string Language = "zh-CN";
-        public const string Version = "2023.12.408";
+        public const string Version = "2023.430.1";
         public const string Author = "TimChen";
         public const string Tags = "";
     }

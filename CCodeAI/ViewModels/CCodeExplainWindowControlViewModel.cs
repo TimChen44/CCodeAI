@@ -2,15 +2,30 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.SemanticKernel;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
+using System.Windows;
 
 namespace CCodeAI.ViewModels
 {
-    public partial class CCodeExplainWindowControlViewModel : ObservableObject
+    public partial class CCodeExplainWindowControlViewModel : ObservableObject, INotifyPropertyChanged
     {
         private AsyncRelayCommand _sendCommand;
         private string _question;
+
+        private bool _IsLoading = false;
+        public bool IsLoading { get => _IsLoading; set => SetProperty(ref _IsLoading, value); }
+
+        public void AiLoading()
+        {
+            IsLoading = true;
+        }
+
+        public void AiLoaded()
+        {
+            IsLoading = false;
+        }
 
         public CCodeExplainWindowControlViewModel()
         {
@@ -22,23 +37,24 @@ namespace CCodeAI.ViewModels
 
             SKernel = Kernel.Builder.Configure(c =>
             {
-                c.AddOpenAITextCompletionService(
-                    "ccode",
-                    OpenAIConfig.Model,
-                    OpenAIConfig.OpenAIKey
-                    );
-                //c.AddAzureTextCompletionService
-                //(
+                //c.AddOpenAITextCompletionService(
                 //    "ccode",
-                //    "text-davinci-003",
-                //    AzureConfig.Endpoint,
-                //    AzureConfig.AppKey
-                //);
+                //    OpenAIConfig.Model,
+                //    OpenAIConfig.OpenAIKey
+                //    );
+                c.AddAzureTextCompletionService
+              (
+                    "ccode",
+                    "text-davinci-003",
+                    AzureConfig.Endpoint,
+                    AzureConfig.AppKey
+                );
+
             })
             .Build();
         }
 
-        public string Question { get => _question; set => SetProperty(ref _question , value); }
+        public string Question { get => _question; set => SetProperty(ref _question, value); }
 
         public ObservableCollection<ChatData> ChatDatas { get; set; } = new();
 
@@ -48,6 +64,7 @@ namespace CCodeAI.ViewModels
 
         private async Task SendAsync(CancellationToken cancellationToken)
         {
+            AiLoading();
             var chatFunc = SKernel.CreateSemanticFunction(CodeSemanticFunctions.Chat);
 
             ChatDatas.Add(new ChatData()
@@ -61,14 +78,16 @@ namespace CCodeAI.ViewModels
             if (result.ErrorOccurred)
             {
                 await VS.MessageBox.ShowErrorAsync(result.LastErrorDescription);
+                AiLoaded();
                 return;
             }
-
+            Question = "";
             ChatDatas.Add(new ChatData()
             {
                 Content = result.ToString().Trim(),
                 Who = EWho.Assistant
             });
+            AiLoaded();
         }
 
         [RelayCommand]

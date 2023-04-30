@@ -145,8 +145,9 @@
             Grid.Row="3"
             Height="2"
             VerticalAlignment="Top"
-            IsIndeterminate="{Binding SendCommand.IsRunning}"
-            Visibility="Collapsed" />
+            IsIndeterminate="{Binding IsLoading}"
+            Value="100"
+            Visibility="Visible" />
         <Grid Grid.Row="3" Margin="0,4,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -171,6 +172,7 @@
                 Background="Transparent"
                 BorderThickness="0"
                 Command="{Binding SendCommand}"
+                IsEnabled="{Binding !IsLoading}"
                 ToolTip="发送">
                 <Image Source="{StaticResource SendDrawingImage}" />
             </Button>

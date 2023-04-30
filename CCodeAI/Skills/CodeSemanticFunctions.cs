@@ -1,44 +1,39 @@
 ﻿internal static class CodeSemanticFunctions
 {
-    public const string CodeExplain =
-        """
+    public const string CodeExplain = """
             ```{{$extension}}
             {{$input}}
             ```
-            Explain Code
+            解释代码：
             """;
 
-    public const string CodeNote =
-        """
+    public const string CodeNote = """
             ```{{$extension}}
             {{$input}}
             ```
-            Add comments to the code
+            给每一行代码添加注释：
             """;
 
-    public const string CodeOptimize =
-        """
+    public const string CodeOptimize = """
             ```{{$extension}}
             {{$input}}
             ```
-            Optimize code
+            优化代码：
             """;
 
-    public const string ContinuationCode =
-        """
+    public const string ContinuationCode = """
             ```{{$extension}}
             {{$input}}
             ```
-            Continue writing the code
+            根据注释续写代码，只需要返回新增的代码，不要返回其他内容：
             """;
 
-    public const string Chat =
-        """
-            The following is a conversation with an AI Coding assistant. The assistant is helpful, creative, clever, and very friendly.
+    public const string Chat = """
+            以下是与人工智能编码助理的对话。这位助理乐于助人，富有创造力，聪明，而且非常友好。
 
-            Ask:I have a question. Can you help? 
-            Answer:Of course. I am your AI Copilot. Go on!
-            Ask:{{$input}}
-            Answer:
+            问：我有一个问题。你能帮忙吗？
+            答：当然，我是你的AI编码助理，请继续！
+            问：{{$input}}
+            答：
             """;
 }

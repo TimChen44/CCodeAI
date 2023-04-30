@@ -11,6 +11,13 @@ namespace CCodeAI.ViewModels
             string extension,
             string semanticFuncation)
         {
+            vm.AiLoading();
+            vm.ChatDatas.Add(new ChatData()
+            {
+                Content = "询问AI中，请稍后...",
+                Who = EWho.PlugIn
+            });
+
             var explainFunc = vm.SKernel.CreateSemanticFunction(semanticFuncation);
 
             var context = vm.SKernel.CreateNewContext();
@@ -21,6 +28,7 @@ namespace CCodeAI.ViewModels
             if (result.ErrorOccurred)
             {
                 await VS.MessageBox.ShowErrorAsync(result.LastErrorDescription);
+                vm.AiLoaded();
                 return null;
             }
 
@@ -31,7 +39,7 @@ namespace CCodeAI.ViewModels
                 Content = content,
                 Who = EWho.Assistant
             });
-
+            vm.AiLoaded();
             return content;
         }
     }
