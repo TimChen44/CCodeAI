@@ -2,6 +2,8 @@
 
 ## 使用ChatGPT的能力辅助编写代码
 
+扩展下载地址：https://marketplace.visualstudio.com/items?itemName=TimChen44.CCodeAI
+
 # 主要功能
 
 - 解释代码
@@ -15,6 +17,10 @@
 ![22 (1)](https://user-images.githubusercontent.com/7581981/230700433-78e23cab-c833-4d25-b772-1d8ad87e4604.png)
 
 # 更新记录
+
+### 2023.430.1
+
+- 增加自适应VS主题色
 
 ### 2023.12.0408
 
