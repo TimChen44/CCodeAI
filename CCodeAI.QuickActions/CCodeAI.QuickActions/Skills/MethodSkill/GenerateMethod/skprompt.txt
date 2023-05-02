@@ -1,0 +1,3 @@
+﻿Generate a {{$language}} method based on the following information and add XML comments:
+
+{{$input}}

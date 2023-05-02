@@ -43,7 +43,7 @@ namespace CCodeAI
             }
             catch (Exception ex)
             {
-                VS.MessageBox.ShowError(ex.Message);
+                await VS.MessageBox.ShowErrorAsync(ex.Message);
             }
         }
     }

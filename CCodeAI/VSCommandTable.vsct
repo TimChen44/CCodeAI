@@ -1,95 +1,105 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-	<Extern href="stdidcmd.h"/>
-	<Extern href="vsshlids.h"/>
-	<Include href="KnownImageIds.vsct"/>
-	<Include href="VSGlobals.vsct"/>
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+  <Include href="KnownImageIds.vsct"/>
+  <Include href="VSGlobals.vsct"/>
 
-	<Commands package="CCodeAI">
+  <Commands package="CCodeAI">
 
-		<Menus>
-			<Menu guid="CCodeAI" id="CCodeMenu" priority="0x0900" type="Menu">
-				<Parent guid="VSMainMenu" id="CodeWindow.LanguageGroupGroup" />
-				<Strings>
-					<ButtonText>CCodeAI</ButtonText>
-				</Strings>
-			</Menu>
-		</Menus>
+    <Menus>
+      <Menu guid="CCodeAI" id="CCodeMenu" priority="0x0900" type="Menu">
+        <Parent guid="VSMainMenu" id="CodeWindow.LanguageGroupGroup" />
+        <Strings>
+          <ButtonText>CCodeAI</ButtonText>
+        </Strings>
+      </Menu>
+    </Menus>
 
-		<Groups>
-			<Group guid="CCodeAI" id="CCodeGroup" priority="0x0600">
-				<Parent guid="CCodeAI" id="CCodeMenu" />
-			</Group>
-		</Groups>
+    <Groups>
+      <Group guid="CCodeAI" id="CCodeGroup" priority="0x0600">
+        <Parent guid="CCodeAI" id="CCodeMenu" />
+      </Group>
+    </Groups>
 
-		<Buttons>
-			<Button guid="CCodeAI" id="CCodeAICommandId" priority="0x0100" type="Button">
-				<Parent guid="VSMainMenu" id="Tools.ExtensibilityGroup" />
-				<Icon guid="ImageCatalogGuid" id="CodeReviewWizard" />
-				<CommandFlag>IconIsMoniker</CommandFlag>
-				<Strings>
-					<ButtonText>CCodeAI</ButtonText>
-				</Strings>
-			</Button>
+    <Buttons>
+      <Button guid="CCodeAI" id="CCodeAICommandId" priority="0x0100" type="Button">
+        <Parent guid="VSMainMenu" id="Tools.ExtensibilityGroup" />
+        <Icon guid="ImageCatalogGuid" id="CodeReviewWizard" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>CCodeAI</ButtonText>
+        </Strings>
+      </Button>
 
-			<!--代码解释-->
-			<Button guid="CCodeAI" id="CCodeExplainCommandId" priority="0x0100" type="Button">
-				<Parent guid="CCodeAI" id="CCodeGroup" />
-				<Icon guid="ImageCatalogGuid" id="SQLServerObjectExplorer" />
-				<CommandFlag>IconIsMoniker</CommandFlag>
-				<Strings>
-					<ButtonText>解释代码</ButtonText>
-				</Strings>
-			</Button>
-			<Button guid="CCodeAI" id="CCodeNoteCommandId" priority="0x0100" type="Button">
-				<Parent guid="CCodeAI" id="CCodeGroup" />
-				<Icon guid="ImageCatalogGuid" id="CodeReviewWizard" />
-				<CommandFlag>IconIsMoniker</CommandFlag>
-				<Strings>
-					<ButtonText>注释代码</ButtonText>
-				</Strings>
-			</Button>
-			<Button guid="CCodeAI" id="CCodeOptimizeCommandId" priority="0x0100" type="Button">
-				<Parent guid="CCodeAI" id="CCodeGroup" />
-				<Icon guid="ImageCatalogGuid" id="CodeMetrics" />
-				<CommandFlag>IconIsMoniker</CommandFlag>
-				<Strings>
-					<ButtonText>优化代码</ButtonText>
-				</Strings>
-			</Button>
-			
-						<Button guid="CCodeAI" id="CCodeContinuationCodeCommandId" priority="0x0100" type="Button">
-				<Parent guid="CCodeAI" id="CCodeGroup" />
-				<Icon guid="ImageCatalogGuid" id="Writeable" />
-				<CommandFlag>IconIsMoniker</CommandFlag>
-				<Strings>
-					<ButtonText>根据注释续写代码</ButtonText>
-				</Strings>
-			</Button>
+      <!--代码解释-->
+      <Button guid="CCodeAI" id="CCodeExplainCommandId" priority="0x0100" type="Button">
+        <Parent guid="CCodeAI" id="CCodeGroup" />
+        <Icon guid="ImageCatalogGuid" id="SQLServerObjectExplorer" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>解释代码</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="CCodeAI" id="CCodeNoteCommandId" priority="0x0100" type="Button">
+        <Parent guid="CCodeAI" id="CCodeGroup" />
+        <Icon guid="ImageCatalogGuid" id="CodeReviewWizard" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>注释代码</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="CCodeAI" id="CCodeOptimizeCommandId" priority="0x0100" type="Button">
+        <Parent guid="CCodeAI" id="CCodeGroup" />
+        <Icon guid="ImageCatalogGuid" id="CodeMetrics" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>优化代码</ButtonText>
+        </Strings>
+      </Button>
 
-			<Button guid="CCodeAI" id="CCodeAddAskCommandId" priority="0x0100" type="Button">
-				<Parent guid="CCodeAI" id="CCodeGroup" />
-					  <Icon guid="ImageCatalogGuid" id="AddButton" />
-				<CommandFlag>IconIsMoniker</CommandFlag>
-				<Strings>
-					<ButtonText>加入问题框</ButtonText>
-				</Strings>
-			</Button>
-		</Buttons>
-	</Commands>
+      <Button guid="CCodeAI" id="CCodeContinuationCodeCommandId" priority="0x0100" type="Button">
+        <Parent guid="CCodeAI" id="CCodeGroup" />
+        <Icon guid="ImageCatalogGuid" id="Writeable" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>根据注释续写代码</ButtonText>
+        </Strings>
+      </Button>
 
-	<Symbols>
-		<GuidSymbol name="CCodeAI" value="{2bdd3495-3110-42a1-b16c-a967f03684a7}">
-			<IDSymbol name="CCodeMenu" value="0x1001" />
-			<IDSymbol name="CCodeGroup" value="0x1011" />
-			<IDSymbol name="CCodeExplainCommandId" value="0x1021" />
-			<IDSymbol name="CCodeNoteCommandId" value="0x1022" />
-			<IDSymbol name="CCodeOptimizeCommandId" value="0x1023" />
-			<IDSymbol name="CCodeAddAskCommandId" value="0x1024" />
-			<IDSymbol name="CCodeContinuationCodeCommandId" value="0x1025" />
-			
-			<IDSymbol name="CCodeAICommandId" value="0x2001" />
-		</GuidSymbol>
-	</Symbols>
+      <Button guid="CCodeAI" id="CCodeAddAskCommandId" priority="0x0100" type="Button">
+        <Parent guid="CCodeAI" id="CCodeGroup" />
+        <Icon guid="ImageCatalogGuid" id="AddButton" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>加入问题框</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="CCodeAI" id="CCodeCodeGenCommandId" priority="0x0100" type="Button">
+        <Parent guid="CCodeAI" id="CCodeGroup"/>
+        <Icon guid="ImageCatalogGuid" id="AddButton" />
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <Strings>
+          <ButtonText>生成代码</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+  </Commands>
+
+  <Symbols>
+    <GuidSymbol name="CCodeAI" value="{2bdd3495-3110-42a1-b16c-a967f03684a7}">
+      <IDSymbol name="CCodeMenu" value="0x1001" />
+      <IDSymbol name="CCodeGroup" value="0x1011" />
+      <IDSymbol name="CCodeExplainCommandId" value="0x1021" />
+      <IDSymbol name="CCodeNoteCommandId" value="0x1022" />
+      <IDSymbol name="CCodeOptimizeCommandId" value="0x1023" />
+      <IDSymbol name="CCodeAddAskCommandId" value="0x1024" />
+      <IDSymbol name="CCodeContinuationCodeCommandId" value="0x1025" />
+      <IDSymbol name="CCodeCodeGenCommandId" value="0x1026"/>
+
+      <IDSymbol name="CCodeAICommandId" value="0x2001" />
+    </GuidSymbol>
+  </Symbols>
 </CommandTable>

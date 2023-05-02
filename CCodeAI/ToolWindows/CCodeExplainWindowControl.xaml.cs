@@ -1,4 +1,5 @@
 ﻿using CCodeAI.ViewModels;
+using ICSharpCode.AvalonEdit;
 using System.Windows.Controls;
 
 namespace CCodeAI
@@ -7,6 +8,8 @@ namespace CCodeAI
     {
         public CCodeExplainWindowControl()
         {
+            MdXaml.MarkdownScrollViewer m;
+            ICSharpCode.AvalonEdit.TextEditor c;
             InitializeComponent();
             DataContext = VM = new CCodeExplainWindowControlViewModel();
         }

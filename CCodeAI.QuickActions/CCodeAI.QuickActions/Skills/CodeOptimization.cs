@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CCodeAI.QuickActions.Skills;
 
-internal class CodeOptimizationSemanticFuncation
+public class CodeOptimizationSemanticFuncation
 {
     public const string CodeOptimize = """
             ```{{$extension}}

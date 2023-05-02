@@ -1,0 +1,31 @@
+{
+    "skillName": "Skills",
+    "functionName": "GenerateEnum",
+    "description": "Answer any question",
+    "filePath": "GenerateEnum\\skprompt.txt",
+    "results": [
+        {
+            "completionConfig": {
+                "label": "text-davinci-003",
+                "aiService": "OpenAI",
+                "deploymentOrModelId": "text-davinci-003",
+                "endpoint": null
+            },
+            "requestSettings": {
+                "temperature": 0,
+                "topP": 0,
+                "presencePenalty": 0,
+                "frequencyPenalty": 0,
+                "maxTokens": 0,
+                "stopSequences": []
+            },
+            "variables": [
+                {
+                    "key": "input",
+                    "value": "a,b,c"
+                }
+            ],
+            "output": "Prompt:\r\n\t����������������C# enum��������xmlע��:\n\t\n\ta,b,c\n\r\nResult:\r\n\t```C#\n\t/// <summary>\n\t/// ö������\n\t/// </summary>\n\tpublic enum EnumType\n\t{\n\t    /// <summary>\n\t    /// a\n\t    /// </summary>\n\t    A,\n\t    /// <summary>\n\t    /// b\n\t    /// </summary>\n\t    B,\n\t    /// <summary>\n\t    /// c\n\t    /// </summary>\n\t    C\n\t}\n\t``\n\r\nTokens:\r\n\tInput tokens: 41\r\n\tOutput tokens: 100\r\n\tTotal: 141\n\r\n"
+        }
+    ]
+}

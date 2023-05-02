@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using CCodeAI.ViewModels;
+using Microsoft.VisualStudio.Shell.Interop;
+using System.Windows;
 
 namespace CCodeAI.Views;
 
@@ -7,8 +9,22 @@ namespace CCodeAI.Views;
 /// </summary>
 public partial class CodeGenWindow : Window
 {
-    public CodeGenWindow()
+    public CodeGenWindow(string language,string input = "")
     {
         InitializeComponent();
+
+        DataContext = VM = new CodeGenWindowViewModel(language)
+        {
+            Input = input,
+            CloseAction = () => this.Close(),
+            DialogResult = (b) => { DialogResult = b; }
+        };
     }
+
+    /// <summary>
+    /// Generated code by LLM Model
+    /// </summary>
+    public string ResponseText => VM.Output;
+
+    internal CodeGenWindowViewModel VM { get; }
 }

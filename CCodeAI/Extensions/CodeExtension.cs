@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace CCodeAI.Extensions;
 
-namespace CCodeAI.Extensions
+public static class CodeExtension
 {
-    public static class CodeExtension
+    public static string GetCodeType(string extension)
     {
-        public static string GetCodeType(string extension)
+        return extension switch
         {
-            return extension switch
-            {
-                ".cs" => "C#",
-                ".js" => "JavaScript",
-                ".ts" => "TypeScript",
-                ".cpp" => "C++",
-                _ => ""
-            };
-        }
+            ".cs" => "C#",
+            ".js" => "JavaScript",
+            ".ts" => "TypeScript",
+            ".cpp" => "C++",
+            ".vb" => "vb",
+            _ => ""
+        };
     }
 }
