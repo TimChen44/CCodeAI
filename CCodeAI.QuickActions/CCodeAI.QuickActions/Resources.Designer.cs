@@ -61,7 +61,7 @@ namespace CCodeAI.QuickActions {
         }
         
         /// <summary>
-        ///   查找类似 Optimize Code 的本地化字符串。
+        ///   查找类似 Use openai to optimize Code 的本地化字符串。
         /// </summary>
         internal static string CodeOptimizationAnalyzerDescription {
             get {
@@ -88,7 +88,7 @@ namespace CCodeAI.QuickActions {
         }
         
         /// <summary>
-        ///   查找类似  的本地化字符串。
+        ///   查找类似 Optimize this method 的本地化字符串。
         /// </summary>
         internal static string CodeOptimizationMethodDescription {
             get {

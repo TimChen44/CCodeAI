@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-internal class KernelFactory
+public class KernelFactory
 {
     public static IKernel SKernel { get; private set; }
 

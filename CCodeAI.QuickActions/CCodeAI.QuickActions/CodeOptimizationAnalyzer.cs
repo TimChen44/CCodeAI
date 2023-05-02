@@ -60,7 +60,9 @@ public class CodeOptimizationAnalyzer : DiagnosticAnalyzer
         var diagnostic = Diagnostic.Create(
             Rule,
             context.OperationBlocks.First().Syntax.GetLocation(),
-            Resources.CodeOptimizationAnalyzerTitle);
+            Title);
+
+        context.ReportDiagnostic(diagnostic);
     }
 
     private void AnalyzeCodeBlock(CodeBlockAnalysisContext context)
@@ -68,7 +70,7 @@ public class CodeOptimizationAnalyzer : DiagnosticAnalyzer
         var diagnostic = Diagnostic.Create(
             Rule, 
             context.CodeBlock.GetLocation(), 
-            Resources.CodeOptimizationAnalyzerTitle);
+            Title);
 
         context.ReportDiagnostic(diagnostic);
     }

@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CodeOptimizationAnalyzerDescription" xml:space="preserve">
-    <value>Optimize Code</value>
+    <value>Use openai to optimize Code</value>
     <comment>An optional longer localizable description of the diagnostic.</comment>
   </data>
   <data name="CodeOptimizationAnalyzerMessageFormat" xml:space="preserve">
@@ -130,6 +130,7 @@
     <comment>The title of the diagnostic.</comment>
   </data>
   <data name="CodeOptimizationMethodDescription" xml:space="preserve">
-    <value />
+    <value>Optimize this method</value>
+    <comment>Optimize this method</comment>
   </data>
 </root>

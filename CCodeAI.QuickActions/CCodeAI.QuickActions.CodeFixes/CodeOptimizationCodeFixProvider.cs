@@ -36,9 +36,9 @@ public class CodeOptimizationCodeFixProvider : CodeFixProvider
         if(context.Span.Length > 0)
         {
             var action = CodeAction.Create(
-                title: CodeFixResources.OptimizeSelectedCode,
+                title: CodeFixResources.OptimizeCode,
                 createChangedDocument: c => OptimizeCode(context.Document, diagnosticSpan, c),
-                equivalenceKey: nameof(CodeFixResources.OptimizeSelectedCode)
+                equivalenceKey: nameof(CodeFixResources.OptimizeCode)
             );
 
             context.RegisterCodeFix(

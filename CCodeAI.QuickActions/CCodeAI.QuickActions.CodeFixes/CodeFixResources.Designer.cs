@@ -70,11 +70,20 @@ namespace CCodeAI.QuickActions {
         }
         
         /// <summary>
-        ///   查找类似 Optimize selected code 的本地化字符串。
+        ///   查找类似 Use openai to optimize code 的本地化字符串。
         /// </summary>
-        internal static string OptimizeSelectedCode {
+        internal static string OptimizeCode {
             get {
-                return ResourceManager.GetString("OptimizeSelectedCode", resourceCulture);
+                return ResourceManager.GetString("OptimizeCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Use openai to optimize method 的本地化字符串。
+        /// </summary>
+        internal static string OptimizeMethodCode {
+            get {
+                return ResourceManager.GetString("OptimizeMethodCode", resourceCulture);
             }
         }
     }

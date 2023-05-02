@@ -35,30 +35,14 @@ namespace CCodeAI.ViewModels
                 Content = "遇事不决，问AI。"
             });
 
-            SKernel = Kernel.Builder.Configure(c =>
-            {
-                //c.AddOpenAITextCompletionService(
-                //    "ccode",
-                //    OpenAIConfig.Model,
-                //    OpenAIConfig.OpenAIKey
-                //    );
-                c.AddAzureTextCompletionService
-              (
-                    "ccode",
-                    "text-davinci-003",
-                    AzureConfig.Endpoint,
-                    AzureConfig.AppKey
-                );
-
-            })
-            .Build();
+            KernelFactory.Init();
         }
 
         public string Question { get => _question; set => SetProperty(ref _question, value); }
 
         public ObservableCollection<ChatData> ChatDatas { get; set; } = new();
 
-        public IKernel SKernel { get; set; }
+        public IKernel SKernel => KernelFactory.SKernel;
 
         public AsyncRelayCommand SendCommand { get => _sendCommand ??= new AsyncRelayCommand(SendAsync); }
 

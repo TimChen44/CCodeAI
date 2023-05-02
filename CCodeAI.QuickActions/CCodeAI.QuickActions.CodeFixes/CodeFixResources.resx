@@ -121,8 +121,11 @@
     <value>Make uppercase</value>
     <comment>The title of the code fix.</comment>
   </data>
-  <data name="OptimizeSelectedCode" xml:space="preserve">
-    <value>Optimize selected code</value>
+  <data name="OptimizeCode" xml:space="preserve">
+    <value>Use openai to optimize code</value>
     <comment>Optimize selected code</comment>
+  </data>
+  <data name="OptimizeMethodCode" xml:space="preserve">
+    <value>Use openai to optimize method</value>
   </data>
 </root>

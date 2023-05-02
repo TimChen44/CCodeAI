@@ -97,16 +97,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CodeOptimizationAnalyzerDescription" xml:space="preserve">
-    <value>使用AI来优化代码</value>
+  <data name="OptimizeMethodCode" xml:space="preserve">
+    <value>使用AI优化此方法</value>
   </data>
-  <data name="CodeOptimizationAnalyzerMessageFormat" xml:space="preserve">
-    <value>优化 '{0}' </value>
+  <data name="OptimizeCode" xml:space="preserve">
+    <value>使用AI优化代码</value>
   </data>
-  <data name="CodeOptimizationAnalyzerTitle" xml:space="preserve">
-    <value>使用AI来优化你的代码</value>
-  </data>
-  <data name="CodeOptimizationMethodDescription" xml:space="preserve">
-    <value>优化这个方法</value>
+  <data name="CodeFixTitle" xml:space="preserve">
+    <value>转换为大写</value>
   </data>
 </root>

@@ -70,6 +70,10 @@
     <Compile Include="ToolWindows\WhoToImageConverter.cs" />
     <Compile Include="ViewModels\CCodeExplainWindowControlViewModel.cs" />
     <Compile Include="ViewModels\CodeExplainExtension.cs" />
+    <Compile Include="ViewModels\CodeGenWindowViewModel.cs" />
+    <Compile Include="Views\CodeGenWindow.xaml.cs">
+      <DependentUpon>CodeGenWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VSCommandTable.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -136,6 +140,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="ToolWindows\CCodeExplainWindowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CodeGenWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
