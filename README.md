@@ -1,5 +1,7 @@
 # CCodeAI
 
+![CCodeAI](../CCodeAI/Resources/Icon.png)
+
 ## 使用ChatGPT的能力辅助编写代码
 
 扩展下载地址：https://marketplace.visualstudio.com/items?itemName=TimChen44.CCodeAI
