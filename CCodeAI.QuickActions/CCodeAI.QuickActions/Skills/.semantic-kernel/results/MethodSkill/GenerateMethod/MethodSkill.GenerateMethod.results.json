@@ -1,0 +1,31 @@
+{
+    "skillName": "MethodSkill",
+    "functionName": "GenerateMethod",
+    "description": "Answer any question",
+    "filePath": "MethodSkill\\GenerateMethod\\skprompt.txt",
+    "results": [
+        {
+            "completionConfig": {
+                "label": "text-davinci-003",
+                "aiService": "OpenAI",
+                "deploymentOrModelId": "text-davinci-003",
+                "endpoint": null
+            },
+            "requestSettings": {
+                "temperature": 0,
+                "topP": 0,
+                "presencePenalty": 0,
+                "frequencyPenalty": 0,
+                "maxTokens": 0,
+                "stopSequences": []
+            },
+            "variables": [
+                {
+                    "key": "input",
+                    "value": "Create a cirlce in solidworks"
+                }
+            ],
+            "output": "warn: Microsoft.SemanticKernel.IKernel[0]\r\n      Variable `$language` not found\r\nPrompt:\r\n\tGenerate a  method and it's implementation based on the following information and add XML comments:\n\t\n\tCreate a cirlce in solidworks\n\r\nwarn: Microsoft.SemanticKernel.IKernel[0]\r\n      Variable `$language` not found\r\nwarn: Microsoft.SemanticKernel.IKernel[0]\r\n      Error executing action [attempt 1 of 1]. Reason: System.Net.Http.HttpRequestException. Will retry after 2000ms\r\nResult:\r\n\t/// <summary>\n\t/// This method creates a circle in Solidworks\n\t/// </summary>\n\t/// <param name=\"radius\">The radius of the circle</param>\n\t/// <param name=\"centerPoint\">The center point of the circle</param>\n\tpublic void CreateCircle(double radius, Point centerPoint)\n\t{\n\t    // Create a new circle in Solidworks\n\t    var circle = Solidworks.CreateCircle(radius, centerPoint);\n\t}\n\r\nTokens:\r\n\tInput tokens: 29\r\n\tOutput tokens: 100\r\n\tTotal: 129\n\r\n"
+        }
+    ]
+}

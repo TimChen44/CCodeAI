@@ -82,12 +82,16 @@
         <Icon guid="ImageCatalogGuid" id="AddButton" />
         <CommandFlag>IconIsMoniker</CommandFlag>
         <Strings>
-          <ButtonText>生成代码</ButtonText>
+          <ButtonText>生成代码</ButtonText>          
         </Strings>
       </Button>
     </Buttons>
   </Commands>
 
+  <KeyBindings>
+    <KeyBinding guid="CCodeAI" id="CCodeCodeGenCommandId" mod1="Control" key1="A" mod2="Control" key2="G" editor="guidVSStd97"></KeyBinding>
+  </KeyBindings>
+  
   <Symbols>
     <GuidSymbol name="CCodeAI" value="{2bdd3495-3110-42a1-b16c-a967f03684a7}">
       <IDSymbol name="CCodeMenu" value="0x1001" />

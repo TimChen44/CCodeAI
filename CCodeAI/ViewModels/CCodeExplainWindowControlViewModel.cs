@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CCodeAI.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.SemanticKernel;
 using System.Collections.ObjectModel;
@@ -80,6 +81,13 @@ namespace CCodeAI.ViewModels
             var first = ChatDatas.First();
             ChatDatas.Clear();
             ChatDatas.Add(first);
+        }
+
+        [RelayCommand]
+        private void OpenCodeGenWindow()
+        {
+            var window = new CodeGenWindow("c#");
+            window.ShowDialog();
         }
     }
 }
