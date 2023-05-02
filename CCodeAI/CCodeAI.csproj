@@ -140,6 +140,16 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CCodeAI.QuickActions\CCodeAI.QuickActions.CodeFixes\CCodeAI.QuickActions.CodeFixes.csproj">
+      <Project>{124212b4-0a67-4591-997c-515653aed1c3}</Project>
+      <Name>CCodeAI.QuickActions.CodeFixes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CCodeAI.QuickActions\CCodeAI.QuickActions\CCodeAI.QuickActions.csproj">
+      <Project>{7e9af2b5-4b76-490a-9d2f-a78a6b8e427d}</Project>
+      <Name>CCodeAI.QuickActions</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup>
