@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PackageLanguagePackManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011">
+  <Metadata>
+    <DisplayName>CCodeAI</DisplayName>
+    <Description>帮助你理解和优化代码</Description>
+  </Metadata>
+</PackageLanguagePackManifest>
