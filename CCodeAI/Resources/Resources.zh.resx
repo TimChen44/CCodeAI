@@ -123,4 +123,10 @@
   <data name="InsertBtn" xml:space="preserve">
     <value>插入(_I)</value>
   </data>
+  <data name="InquiryAI" xml:space="preserve">
+    <value>询问AI中，请稍后...</value>
+  </data>
+  <data name="WhenDoubtAI" xml:space="preserve">
+    <value>When in doubt, ask AI.</value>
+  </data>
 </root>

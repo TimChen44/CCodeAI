@@ -70,11 +70,77 @@ namespace CCodeAI.Resources {
         }
         
         /// <summary>
+        ///   查找类似 ```{{$extension}}
+        ///            {{$input}}
+        ///            ```
+        ///            解释代码： 的本地化字符串。
+        /// </summary>
+        public static string CodeExplain {
+            get {
+                return ResourceManager.GetString("CodeExplain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ```{{$extension}}
+        ///            {{$input}}
+        ///            ```
+        ///            给每一行代码添加注释： 的本地化字符串。
+        /// </summary>
+        public static string CodeNote {
+            get {
+                return ResourceManager.GetString("CodeNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ```{{$extension}}
+        ///            {{$input}}
+        ///            ```
+        ///            优化代码： 的本地化字符串。
+        /// </summary>
+        public static string CodeOptimize {
+            get {
+                return ResourceManager.GetString("CodeOptimize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ```{{$extension}}
+        ///            {{$input}}
+        ///            ```
+        ///            根据注释续写代码，只需要返回新增的代码，不要返回其他内容： 的本地化字符串。
+        /// </summary>
+        public static string ContinuationCode {
+            get {
+                return ResourceManager.GetString("ContinuationCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Inquiry for AI, please wait... 的本地化字符串。
+        /// </summary>
+        public static string InquiryAI {
+            get {
+                return ResourceManager.GetString("InquiryAI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Insert(_I) 的本地化字符串。
         /// </summary>
         public static string InsertBtn {
             get {
                 return ResourceManager.GetString("InsertBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 When in doubt, ask AI. 的本地化字符串。
+        /// </summary>
+        public static string WhenDoubtAI {
+            get {
+                return ResourceManager.GetString("WhenDoubtAI", resourceCulture);
             }
         }
     }

@@ -9,6 +9,7 @@
     xmlns:local="clr-namespace:CCodeAI.ToolWindows"
     xmlns:markdown="clr-namespace:MdXaml;assembly=MdXaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:platform="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
     xmlns:theming="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Imaging"
     xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
     xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities"
@@ -17,6 +18,7 @@
     d:DataContext="{d:DesignInstance Type=viewmodels:CCodeExplainWindowControlViewModel}"
     d:DesignHeight="500"
     d:DesignWidth="300"
+    toolkit:Themes.UseVsTheme="True"
     mc:Ignorable="d">
     <UserControl.Resources>
         <local:WhoToImageConverter x:Key="WhoToImageConverter" />
@@ -130,8 +132,9 @@
             Background="{DynamicResource VsBrush.Window}"
             BorderThickness="0"
             ItemsSource="{Binding ChatDatas}"
-            ScrollViewer.CanContentScroll="False"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            ScrollViewer.CanContentScroll="True"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ScrollViewer.VerticalScrollBarVisibility="Visible">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,5,0,5">
@@ -164,6 +167,7 @@
                             CornerRadius="5">
                             <markdown:MarkdownScrollViewer
                                 xml:space="preserve"
+                                FontSize="12"
                                 Foreground="{DynamicResource VsBrush.WindowText}"
                                 Markdown="{Binding Content}"
                                 VerticalScrollBarVisibility="Disabled" />

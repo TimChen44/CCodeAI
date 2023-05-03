@@ -3,30 +3,17 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.SemanticKernel;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading;
-using System.Windows;
 
 namespace CCodeAI.ViewModels
 {
-    public partial class CCodeExplainWindowControlViewModel : ObservableObject, INotifyPropertyChanged
+    public partial class CCodeExplainWindowControlViewModel : 
+        ObservableObject
     {
         private AsyncRelayCommand _sendCommand;
         private string _question;
-
-        private bool _IsLoading = false;
-        public bool IsLoading { get => _IsLoading; set => SetProperty(ref _IsLoading, value); }
-
-        public void AiLoading()
-        {
-            IsLoading = true;
-        }
-
-        public void AiLoaded()
-        {
-            IsLoading = false;
-        }
+        private bool _isLoading = false;       
 
         public CCodeExplainWindowControlViewModel()
         {
@@ -47,6 +34,18 @@ namespace CCodeAI.ViewModels
 
         public AsyncRelayCommand SendCommand { get => _sendCommand ??= new AsyncRelayCommand(SendAsync); }
 
+        public bool IsLoading { get => _isLoading; set => SetProperty(ref _isLoading , value); }
+
+        public void AiLoading()
+        {
+            IsLoading = true;
+        }
+
+        public void AiLoaded()
+        {
+            IsLoading = false;
+        }
+
         private async Task SendAsync(CancellationToken cancellationToken)
         {
             AiLoading();
@@ -58,15 +57,16 @@ namespace CCodeAI.ViewModels
                 Content = Question,
             });
 
-            var result = await SKernel.RunAsync(Question, chatFunc);
+            var input = Question;
+            Question = "";
+
+            var result = await SKernel.RunAsync(input, chatFunc);
 
             if (result.ErrorOccurred)
             {
                 await VS.MessageBox.ShowErrorAsync(result.LastErrorDescription);
-                AiLoaded();
                 return;
             }
-            Question = "";
             ChatDatas.Add(new ChatData()
             {
                 Content = result.ToString().Trim(),
