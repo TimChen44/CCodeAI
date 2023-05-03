@@ -90,6 +90,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="en\Extension.vsixlangpack" />
+    <Content Include="zh\Extension.vsixlangpack" />
     <EmbeddedResource Include="Resources\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

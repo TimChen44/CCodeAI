@@ -155,15 +155,23 @@ namespace CCodeAI.ViewModels
         [RelayCommand]
         private void OpenCodeGenWindow()
         {
-            var window = new CodeGenWindow("c#",justCopy:true);
-            if (window.ShowDialog() == true)
+            try
             {
-                Clipboard.SetText(window.VM.Output);
+                var window = new CodeGenWindow("c#", justCopy: true);
+                if (window.ShowDialog() == true)
+                {
+                    Clipboard.SetDataObject(window.VM.Output);
+                }
             }
+            catch (Exception ex)
+            {
+                VS.MessageBox.ShowError(ex.Message);
+            }
+
         }
 
         [RelayCommand]
-        private async void Cancel()
+        private void Cancel()
         {
             try
             {
@@ -178,7 +186,7 @@ namespace CCodeAI.ViewModels
             }
             catch (Exception ex)
             {
-                await VS.MessageBox.ShowErrorAsync(ex.Message);
+                VS.MessageBox.ShowError(ex.Message);
             }
             finally
             {

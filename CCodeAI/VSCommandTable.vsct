@@ -39,7 +39,7 @@
         <Icon guid="ImageCatalogGuid" id="SQLServerObjectExplorer" />
         <CommandFlag>IconIsMoniker</CommandFlag>
         <Strings>
-          <ButtonText>解释代码</ButtonText>
+          <ButtonText>Explain code</ButtonText>
         </Strings>
       </Button>
       <Button guid="CCodeAI" id="CCodeNoteCommandId" priority="0x0100" type="Button">
@@ -47,7 +47,7 @@
         <Icon guid="ImageCatalogGuid" id="CodeReviewWizard" />
         <CommandFlag>IconIsMoniker</CommandFlag>
         <Strings>
-          <ButtonText>注释代码</ButtonText>
+          <ButtonText>Add comments</ButtonText>
         </Strings>
       </Button>
       <Button guid="CCodeAI" id="CCodeOptimizeCommandId" priority="0x0100" type="Button">
@@ -55,7 +55,7 @@
         <Icon guid="ImageCatalogGuid" id="CodeMetrics" />
         <CommandFlag>IconIsMoniker</CommandFlag>
         <Strings>
-          <ButtonText>优化代码</ButtonText>
+          <ButtonText>Optimize code</ButtonText>
         </Strings>
       </Button>
 
@@ -64,7 +64,7 @@
         <Icon guid="ImageCatalogGuid" id="Writeable" />
         <CommandFlag>IconIsMoniker</CommandFlag>
         <Strings>
-          <ButtonText>根据注释续写代码</ButtonText>
+          <ButtonText>Complete the code according to the comments</ButtonText>
         </Strings>
       </Button>
 
@@ -73,7 +73,7 @@
         <Icon guid="ImageCatalogGuid" id="AddButton" />
         <CommandFlag>IconIsMoniker</CommandFlag>
         <Strings>
-          <ButtonText>加入问题框</ButtonText>
+          <ButtonText>Add to chat list</ButtonText>
         </Strings>
       </Button>
 
@@ -82,16 +82,16 @@
         <Icon guid="ImageCatalogGuid" id="AddButton" />
         <CommandFlag>IconIsMoniker</CommandFlag>
         <Strings>
-          <ButtonText>生成代码</ButtonText>          
+          <ButtonText>Generate code</ButtonText>
         </Strings>
       </Button>
     </Buttons>
   </Commands>
 
   <KeyBindings>
-    <KeyBinding guid="CCodeAI" id="CCodeCodeGenCommandId" mod1="Control" key1="A" mod2="Control" key2="G" editor="guidVSStd97"></KeyBinding>
+    <KeyBinding guid="CCodeAI" id="CCodeCodeGenCommandId" mod1="Control" key1="C" mod2="Control" key2="G" editor="guidVSStd97"></KeyBinding>
   </KeyBindings>
-  
+
   <Symbols>
     <GuidSymbol name="CCodeAI" value="{2bdd3495-3110-42a1-b16c-a967f03684a7}">
       <IDSymbol name="CCodeMenu" value="0x1001" />
@@ -106,4 +106,5 @@
       <IDSymbol name="CCodeAICommandId" value="0x2001" />
     </GuidSymbol>
   </Symbols>
+
 </CommandTable>
