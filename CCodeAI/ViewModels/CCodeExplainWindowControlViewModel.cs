@@ -49,7 +49,7 @@ namespace CCodeAI.ViewModels
         private async Task SendAsync(CancellationToken cancellationToken)
         {
             AiLoading();
-            var chatFunc = SKernel.CreateSemanticFunction(CodeSemanticFunctions.Chat);
+            var chatFunc = SKernel.CreateSemanticFunction(Resources.Resources.Chat);
 
             ChatDatas.Add(new ChatData()
             {

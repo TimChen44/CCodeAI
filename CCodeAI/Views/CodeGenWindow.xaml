@@ -127,7 +127,10 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="50" />
                 </Grid.ColumnDefinitions>
-                <TextBox AcceptsReturn="True" Text="{Binding Input, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox
+                    AcceptsReturn="True"
+                    AcceptsTab="True"
+                    Text="{Binding Input, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding
                             Key="Enter"

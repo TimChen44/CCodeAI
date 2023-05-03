@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CCodeAI.QuickActions.Test",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QuickActions", "QuickActions", "{09761E11-112F-4C2F-A333-90A9E53AD94F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MdXaml", "MdXaml\MdXaml.csproj", "{24D58C1E-C256-470F-BB9C-5E2A809E4A0D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,18 @@ Global
 		{52EB4E80-DC22-4B36-884D-E2202D0239C8}.Release|arm64.Build.0 = Release|Any CPU
 		{52EB4E80-DC22-4B36-884D-E2202D0239C8}.Release|x86.ActiveCfg = Release|Any CPU
 		{52EB4E80-DC22-4B36-884D-E2202D0239C8}.Release|x86.Build.0 = Release|Any CPU
+		{24D58C1E-C256-470F-BB9C-5E2A809E4A0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24D58C1E-C256-470F-BB9C-5E2A809E4A0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24D58C1E-C256-470F-BB9C-5E2A809E4A0D}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{24D58C1E-C256-470F-BB9C-5E2A809E4A0D}.Debug|arm64.Build.0 = Debug|Any CPU
+		{24D58C1E-C256-470F-BB9C-5E2A809E4A0D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{24D58C1E-C256-470F-BB9C-5E2A809E4A0D}.Debug|x86.Build.0 = Debug|Any CPU
+		{24D58C1E-C256-470F-BB9C-5E2A809E4A0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24D58C1E-C256-470F-BB9C-5E2A809E4A0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24D58C1E-C256-470F-BB9C-5E2A809E4A0D}.Release|arm64.ActiveCfg = Release|Any CPU
+		{24D58C1E-C256-470F-BB9C-5E2A809E4A0D}.Release|arm64.Build.0 = Release|Any CPU
+		{24D58C1E-C256-470F-BB9C-5E2A809E4A0D}.Release|x86.ActiveCfg = Release|Any CPU
+		{24D58C1E-C256-470F-BB9C-5E2A809E4A0D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

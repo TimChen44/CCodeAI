@@ -32,7 +32,7 @@ internal sealed class CCodeContinuationCodeCommand : BaseCommand<CCodeContinuati
             var chatData = await toolWindows.VM.CodeSkillAsync(
                 selectedText,
                 CodeExtension.GetCodeType(Path.GetExtension(docView.FilePath)),
-                CodeSemanticFunctions.ContinuationCode);
+                Resources.Resources.ContinuationCode);
 
             if (chatData == null) return;
 

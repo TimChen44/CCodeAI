@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using System;
 using System.Collections.Immutable;
 
-namespace CCodeAI.QuickActions.Test
+namespace CCodeAI.QuickActions.Test.Verifiers
 {
     internal static class CSharpVerifierHelper
     {

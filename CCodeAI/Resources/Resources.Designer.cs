@@ -70,10 +70,24 @@ namespace CCodeAI.Resources {
         }
         
         /// <summary>
+        ///   查找类似 以下是与人工智能编码助理的对话。这位助理乐于助人，富有创造力，聪明，而且非常友好。
+        ///
+        ///问：我有一个问题。你能帮忙吗？
+        ///答：当然，我是你的AI编码助理，请继续！
+        ///问：{{$input}}
+        ///答： 的本地化字符串。
+        /// </summary>
+        public static string Chat {
+            get {
+                return ResourceManager.GetString("Chat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 ```{{$extension}}
-        ///            {{$input}}
-        ///            ```
-        ///            解释代码： 的本地化字符串。
+        ///{{$input}}
+        ///```
+        ///Explain the code: 的本地化字符串。
         /// </summary>
         public static string CodeExplain {
             get {
@@ -83,9 +97,9 @@ namespace CCodeAI.Resources {
         
         /// <summary>
         ///   查找类似 ```{{$extension}}
-        ///            {{$input}}
-        ///            ```
-        ///            给每一行代码添加注释： 的本地化字符串。
+        ///{{$input}}
+        ///```
+        ///Add comments to each line of code: 的本地化字符串。
         /// </summary>
         public static string CodeNote {
             get {
@@ -95,9 +109,9 @@ namespace CCodeAI.Resources {
         
         /// <summary>
         ///   查找类似 ```{{$extension}}
-        ///            {{$input}}
-        ///            ```
-        ///            优化代码： 的本地化字符串。
+        ///{{$input}}
+        ///```
+        ///Optimize the code: 的本地化字符串。
         /// </summary>
         public static string CodeOptimize {
             get {
@@ -107,9 +121,9 @@ namespace CCodeAI.Resources {
         
         /// <summary>
         ///   查找类似 ```{{$extension}}
-        ///            {{$input}}
-        ///            ```
-        ///            根据注释续写代码，只需要返回新增的代码，不要返回其他内容： 的本地化字符串。
+        ///{{$input}}
+        ///```
+        ///Complete the code based on the comments, and only return the added code, excluding any other content: 的本地化字符串。
         /// </summary>
         public static string ContinuationCode {
             get {

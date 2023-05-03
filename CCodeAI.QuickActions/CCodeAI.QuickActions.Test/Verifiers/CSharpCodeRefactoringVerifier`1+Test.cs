@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis.CodeRefactorings;
+﻿using CCodeAI.QuickActions.Test.Verifiers;
+using Microsoft.CodeAnalysis.CodeRefactorings;
 using Microsoft.CodeAnalysis.CSharp.Testing;
 using Microsoft.CodeAnalysis.Testing.Verifiers;
 

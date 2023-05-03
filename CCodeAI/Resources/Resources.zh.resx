@@ -129,4 +129,36 @@
   <data name="WhenDoubtAI" xml:space="preserve">
     <value>When in doubt, ask AI.</value>
   </data>
+  <data name="CodeNote" xml:space="preserve">
+    <value>```{{$extension}}
+{{$input}}
+```
+给每一行代码添加注释：</value>
+  </data>
+  <data name="CodeExplain" xml:space="preserve">
+    <value>```{{$extension}}
+{{$input}}
+```
+解释代码：</value>
+  </data>
+  <data name="CodeOptimize" xml:space="preserve">
+    <value>```{{$extension}}
+{{$input}}
+```
+优化代码：</value>
+  </data>
+  <data name="ContinuationCode" xml:space="preserve">
+    <value>```{{$extension}}
+{{$input}}
+```
+根据注释续写代码，只需要返回新增的代码，不要返回其他内容：</value>
+  </data>
+  <data name="Chat" xml:space="preserve">
+    <value>The following is a conversation with an AI coding assistant. This assistant is helpful, creative, intelligent, and very friendly.
+
+Question: I have a question. Can you help me?
+Answer: Of course, I am your AI coding assistant, please proceed!
+Question: {{$input}}
+Answer:</value>
+  </data>
 </root>

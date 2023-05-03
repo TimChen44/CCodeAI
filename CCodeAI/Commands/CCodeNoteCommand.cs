@@ -30,6 +30,6 @@ internal sealed class CCodeNoteCommand : BaseCommand<CCodeNoteCommand>
         await toolWindows.VM.CodeSkillAsync(
                 selectedText,
                 CodeExtension.GetCodeType(Path.GetExtension(docView.FilePath)),
-                CodeSemanticFunctions.CodeNote);
+                Resources.Resources.CodeNote);
     }
 }

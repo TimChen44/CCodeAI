@@ -32,7 +32,7 @@ internal sealed class CCodeExplainCommand : BaseCommand<CCodeExplainCommand>
             await toolWindows.VM.CodeSkillAsync(
                 selectedText, 
                 CodeExtension.GetCodeType(Path.GetExtension(docView.FilePath)),
-                CodeSemanticFunctions.CodeExplain);
+                Resources.Resources.CodeExplain);
         }
         catch (Exception ex)
         {

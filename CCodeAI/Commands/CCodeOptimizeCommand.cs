@@ -33,11 +33,11 @@ internal sealed class CCodeOptimizeCommand : BaseCommand<CCodeOptimizeCommand>
             await toolWindows.VM.CodeSkillAsync(
                 selectedText,
                 CodeExtension.GetCodeType(Path.GetExtension(docView.FilePath)),
-                CodeSemanticFunctions.CodeOptimize);
+                Resources.Resources.CodeOptimize);
         }
         catch (Exception ex)
         {
+            await VS.MessageBox.ShowErrorAsync(ex.Message);
         }
-
     }
 }
