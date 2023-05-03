@@ -22,7 +22,7 @@ public partial class CodeGenWindowViewModel : ObservableObject
 
         var dir = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "CCodeAISkills");
+            "CCodeAI","CCodeAISkills");
 
         if (!Directory.Exists(dir))
         {
@@ -61,6 +61,10 @@ public partial class CodeGenWindowViewModel : ObservableObject
 
     public string Language { get; }
 
+    public bool JustCopy { get; internal set; }
+
+    public string ActionBtnName => JustCopy ? Resources.Resources.Copy : Resources.Resources.InsertBtn;
+
     private async Task SendAsync(CancellationToken cancellationToken)
     {
         if (SelectedSemanticModel == null || string.IsNullOrWhiteSpace(Input))
@@ -85,7 +89,7 @@ public partial class CodeGenWindowViewModel : ObservableObject
             await VS.MessageBox.ShowErrorAsync(result.LastErrorDescription);
         }
 
-        Output = result.ToString();
+        Output = result.ToString().Trim();
     }
 
     [RelayCommand]

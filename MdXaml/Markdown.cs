@@ -1443,6 +1443,11 @@ namespace MdXaml
 
         private string? PreProcessLang(string? lang)
         {
+            if (string.IsNullOrEmpty(lang))
+            {
+                return "C#";
+            }
+
             return lang switch
             {
                 "csharp" => "C#",
@@ -1455,11 +1460,12 @@ namespace MdXaml
         {
             var txtEdit = new TextEditor();
 
+            lang = PreProcessLang(lang);
             if (!string.IsNullOrEmpty(lang))
             {
-                lang = PreProcessLang(lang);
                 var highlight = HighlightingManager.Instance.GetDefinition(lang) ?? 
                     HighlightingManager.Instance.GetDefinitionByExtension("." + lang);
+
                 txtEdit.SetCurrentValue(TextEditor.SyntaxHighlightingProperty, highlight);
                 txtEdit.Tag = lang;
             }

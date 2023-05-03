@@ -10,7 +10,7 @@ namespace CCodeAI
         {
 #pragma warning disable CS0168
             MdXaml.MarkdownScrollViewer m;
-            ICSharpCode.AvalonEdit.TextEditor c;
+            TextEditor c;
 #pragma warning restore CS0168
             InitializeComponent();
             DataContext = VM = new CCodeExplainWindowControlViewModel();

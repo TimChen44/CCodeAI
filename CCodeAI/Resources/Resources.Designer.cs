@@ -132,6 +132,15 @@ namespace CCodeAI.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Copy(_C) 的本地化字符串。
+        /// </summary>
+        public static string Copy {
+            get {
+                return ResourceManager.GetString("Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Inquiry for AI, please wait... 的本地化字符串。
         /// </summary>
         public static string InquiryAI {

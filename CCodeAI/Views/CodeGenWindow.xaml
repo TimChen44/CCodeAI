@@ -49,9 +49,9 @@
                             <Border
                                 Grid.Row="1"
                                 Margin="10,6,10,10"
-                                Background="#F9F9F9"
+                                Background="{DynamicResource VsBrush.Window}"
                                 BorderBrush="#D0CECE"
-                                BorderThickness="0,1,1,1"
+                                BorderThickness="1"
                                 CornerRadius="0,0,2,2">
                                 <ContentPresenter />
                             </Border>
@@ -181,7 +181,7 @@
                 <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                     Name="textEditor"
-                    Margin="0,4,0,0"
+                    Background="{DynamicResource VsBrush.Window}"
                     FontFamily="Consolas"
                     FontSize="10pt"
                     HorizontalScrollBarVisibility="Auto"
@@ -209,7 +209,7 @@
                 Margin="0,0,120,0"
                 HorizontalAlignment="Right"
                 Command="{Binding InsertCommand}"
-                Content="{x:Static res:Resources.InsertBtn}" />
+                Content="{Binding ActionBtnName}" />
         </Grid>
     </Grid>
 </Window>

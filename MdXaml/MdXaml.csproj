@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <PackageReference Include="AvalonEdit" Version="6.0.0" />
+    <PackageReference Include="Community.VisualStudio.Toolkit.17" Version="17.0.492" />
     <PackageReference Include="MdXaml.Plugins" Version="1.18.1" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,5 @@
+﻿Generate a WPF style based on the following information:
+
+[Requirment]
+{{$input}}
+[End]

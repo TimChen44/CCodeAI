@@ -161,4 +161,7 @@ Answer: Of course, I am your AI coding assistant, please proceed!
 Question: {{$input}}
 Answer:</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>复制(_C)</value>
+  </data>
 </root>

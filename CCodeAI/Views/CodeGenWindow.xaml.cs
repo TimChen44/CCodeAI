@@ -9,7 +9,10 @@ namespace CCodeAI.Views;
 /// </summary>
 public partial class CodeGenWindow : Window
 {
-    public CodeGenWindow(string language,string input = "")
+    public CodeGenWindow(
+        string language,
+        string input = "",
+        bool justCopy = false)
     {
         InitializeComponent();
 
@@ -17,7 +20,8 @@ public partial class CodeGenWindow : Window
         {
             Input = input,
             CloseAction = () => this.Close(),
-            DialogResult = (b) => { DialogResult = b; }
+            DialogResult = (b) => { DialogResult = b; },
+            JustCopy = justCopy,
         };
     }
 

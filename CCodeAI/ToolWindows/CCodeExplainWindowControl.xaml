@@ -5,6 +5,7 @@
     xmlns:catalog="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.ImageCatalog"
     xmlns:converters="clr-namespace:CCodeAI.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ex="clr-namespace:CCodeAI.Extensions"
     xmlns:imaging="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.Imaging"
     xmlns:local="clr-namespace:CCodeAI.ToolWindows"
     xmlns:markdown="clr-namespace:MdXaml;assembly=MdXaml"
@@ -103,14 +104,17 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="200" MinHeight="50" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
+        <ToolBar
+            Grid.Row="0"
+            Margin="0,0,-30,0"
+            Background="Transparent"
+            Foreground="{DynamicResource VsBrush.WindowText}"
+            ToolBar.OverflowMode="Never"
+            ToolBarTray.IsLocked="True">
             <Button
                 Name="cClearBtn"
                 Width="28"
                 Height="28"
-                Margin="5"
-                Background="Transparent"
-                BorderThickness="0"
                 Command="{Binding ClearCommand}"
                 ToolTip="清空记录">
                 <Image Source="{StaticResource CleanDataDrawingImage}" />
@@ -118,39 +122,34 @@
             <Button
                 Width="28"
                 Height="28"
-                Margin="5"
-                Background="Transparent"
-                BorderThickness="0"
                 Command="{Binding OpenCodeGenWindowCommand}"
                 ToolTip="Open CodeGen Window">
                 <Image Source="{StaticResource PencilLine_dDrawingImage}" />
             </Button>
-        </StackPanel>
-        <ItemsControl
-            Name="cChatList"
+        </ToolBar>
+        <ScrollViewer
+            Name="_scrollViewer"
             Grid.Row="1"
-            Background="{DynamicResource VsBrush.Window}"
-            BorderThickness="0"
-            ItemsSource="{Binding ChatDatas}"
-            ScrollViewer.CanContentScroll="True"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-            ScrollViewer.VerticalScrollBarVisibility="Visible">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,5,0,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Image
-                            Margin="5,10,10,10"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Source="{Binding WhoText, Converter={StaticResource WhoToImageConverter}}" />
-                        <!--<TextBox
+            ex:ScrollViewerExtensions.AlwaysScrollToEnd="True"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <ItemsControl
+                Name="cChatList"
+                BorderThickness="0"
+                ItemsSource="{Binding ChatDatas}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image
+                                Margin="5,10,10,10"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Source="{Binding WhoText, Converter={StaticResource WhoToImageConverter}}" />
+                            <!--<TextBox
                             Grid.Column="1"
                             VerticalAlignment="Center"
                             Background="Transparent"
@@ -159,22 +158,49 @@
                             IsReadOnly="True"
                             Text="{Binding Content}"
                             TextWrapping="Wrap" />-->
-                        <Border
-                            Grid.Column="1"
-                            Padding="5,2"
-                            BorderBrush="#19000000"
-                            BorderThickness="1"
-                            CornerRadius="5">
-                            <markdown:MarkdownScrollViewer
-                                Foreground="{DynamicResource VsBrush.WindowText}"
-                                Markdown="{Binding Content}"
-                                MarkdownStyleName="DocumentStyleGithubLike"
-                                VerticalScrollBarVisibility="Disabled" />
-                        </Border>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                            <Border
+                                Grid.Column="1"
+                                Padding="5,2"
+                                BorderBrush="#19000000"
+                                BorderThickness="1"
+                                CornerRadius="5">
+                                <markdown:MarkdownScrollViewer
+                                    Markdown="{Binding Content}"
+                                    Syntax="Plain"
+                                    VerticalScrollBarVisibility="Disabled" />
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <Button
+            Grid.Row="1"
+            Width="28"
+            Height="28"
+            Margin="0,5"
+            VerticalAlignment="Bottom"
+            Background="Transparent"
+            BorderBrush="#19000000"
+            Command="{Binding CancelCommand}"
+            Visibility="{Binding SendCommand.IsRunning, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Image>
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                <DrawingGroup Opacity="1">
+                                    <DrawingGroup Opacity="0.75">
+                                        <GeometryDrawing Brush="#FFC50B17" Geometry="F1 M16,16z M0,0z M12.5,3.5L12.5,12.5 3.5,12.5 3.5,3.5z" />
+                                    </DrawingGroup>
+                                    <GeometryDrawing Brush="#FFC50B17" Geometry="F1 M16,16z M0,0z M12.5,3L3.5,3 3,3.5 3,12.5 3.5,13 12.5,13 13,12.5 13,3.5z M12,12L4,12 4,4 12,4z" />
+                                </DrawingGroup>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+            </Image>
+        </Button>
         <GridSplitter
             Grid.Row="2"
             Height="3"
@@ -186,10 +212,10 @@
         <ProgressBar
             Name="cProgressBar"
             Grid.Row="3"
-            Height="2"
+            Height="4"
             VerticalAlignment="Top"
             IsIndeterminate="{Binding IsLoading}"
-            Visibility="{Binding SendCommand.IsRunning, Converter={StaticResource BoolToVisibilityConverter}}"
+            Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}"
             Value="100" />
         <Grid Grid.Row="3" Margin="0,4,0,0">
             <Grid.ColumnDefinitions>
@@ -213,20 +239,17 @@
                         Modifiers="Ctrl" />
                 </TextBox.InputBindings>
             </TextBox>
-            <Button
-                x:Name="cAskBtn"
-                Grid.Column="1"
-                Width="30"
-                Height="25"
-                Margin="5,0"
-                VerticalAlignment="Top"
-                Background="Transparent"
-                BorderThickness="0"
-                Command="{Binding SendCommand}"
-                IsEnabled="{Binding !IsLoading}"
-                ToolTip="发送">
-                <Image Source="{StaticResource SendDrawingImage}" />
-            </Button>
+            <ToolBarPanel Grid.Column="1" Orientation="Vertical">
+                <Button
+                    Height="40"
+                    VerticalAlignment="Top"
+                    BorderThickness="0"
+                    Command="{Binding SendCommand}"
+                    IsEnabled="{Binding !IsLoading}"
+                    ToolTip="Send(Ctrl+Enter)">
+                    <Image Source="{StaticResource SendDrawingImage}" />
+                </Button>
+            </ToolBarPanel>
         </Grid>
 
     </Grid>

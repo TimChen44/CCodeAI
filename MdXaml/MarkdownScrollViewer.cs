@@ -95,7 +95,7 @@ namespace MdXaml
                 }
 
                 owner.Engine.Plugins = plugins;
-
+                
                 var doc = owner.Engine.Transform(owner.Markdown ?? "");
                 owner.SetCurrentValue(DocumentProperty, doc);
             }

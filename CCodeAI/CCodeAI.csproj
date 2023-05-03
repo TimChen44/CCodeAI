@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="AzureConfig.cs" />
     <Compile Include="Converters\StringIsNullOrEmptyToVisibilityConveter.cs" />
+    <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Views\AvalonEditBehaviour.cs" />
     <Compile Include="Commands\CCodeAICommandId.cs" />
     <Compile Include="Commands\CCodeAddAskCommandId.cs" />

@@ -161,4 +161,7 @@ Complete the code based on the comments, and only return the added code, excludi
 问：{{$input}}
 答：</value>
   </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Copy(_C)</value>
+  </data>
 </root>

@@ -1,0 +1,123 @@
+{
+    "skillName": "WPFSkill",
+    "functionName": "GenerateWPFStyle",
+    "description": "Answer any question",
+    "filePath": "WPFSkill\\GenerateWPFStyle\\skprompt.txt",
+    "results": [
+        {
+            "completionConfig": {
+                "label": "text-davinci-003",
+                "aiService": "OpenAI",
+                "deploymentOrModelId": "text-davinci-003",
+                "endpoint": null
+            },
+            "requestSettings": {
+                "temperature": 0,
+                "topP": 0,
+                "presencePenalty": 0,
+                "frequencyPenalty": 0,
+                "maxTokens": 0,
+                "stopSequences": []
+            },
+            "variables": [
+                {
+                    "key": "input",
+                    "value": "1.Exander"
+                }
+            ],
+            "output": "Prompt:\r\n\tGenerate a full WPF style based on the following information:\r\n\t\r\n\tAsk:\r\n\t1.GroupBox;\r\n\t2.Simple;\r\n\tAnswer:\r\n\t<Style TargetType=\"{x:Type GroupBox}\">\r\n\t\t<Setter Property=\"BorderBrush\" Value=\"#D5DFE5\"/>\r\n\t      <Setter Property=\"BorderThickness\" Value=\"1\"/>\r\n\t</Style>\r\n\t\r\n\tAsk:\r\n\t1.Exander\r\n\tAnswer:\n\r\nResult:\r\n\t<Style TargetType=\"{x:Type Expander}\">\n\t\t<Setter Property=\"Background\" Value=\"White\"/>\n\t      <Setter Property=\"Foreground\" Value=\"Black\"/>\n\t      <Setter Property=\"BorderBrush\" Value=\"#D5DFE5\"/>\n\t      <Setter Property=\"BorderThickness\" Value=\"1\"/>\n\t      <Setter Property=\"Template\">\n\t            <Setter.Value>\n\t                  <ControlTemplate TargetType\n\r\nTokens:\r\n\tInput tokens: 96\r\n\tOutput tokens: 100\r\n\tTotal: 196\n\r\n"
+        },
+        {
+            "completionConfig": {
+                "label": "text-davinci-003",
+                "aiService": "OpenAI",
+                "deploymentOrModelId": "text-davinci-003",
+                "endpoint": null
+            },
+            "requestSettings": {
+                "temperature": 0,
+                "topP": 0,
+                "presencePenalty": 0,
+                "frequencyPenalty": 0,
+                "maxTokens": 0,
+                "stopSequences": []
+            },
+            "variables": [
+                {
+                    "key": "input",
+                    "value": "生成一个Expander样式"
+                }
+            ],
+            "output": "Prompt:\r\n\tGenerate a full WPF style based on the following information:\r\n\t\r\n\tAsk:\r\n\t1.GroupBox;\r\n\t2.Simple;\r\n\tAnswer:\r\n\t<Style TargetType=\"{x:Type GroupBox}\">\r\n\t      <Setter Property=\"BorderBrush\" Value=\"#D5DFE5\"/>\r\n\t      <Setter Property=\"BorderThickness\" Value=\"1\"/>\r\n\t</Style>\r\n\t\r\n\tAsk:\r\n\t����һ��Expander��ʽ\r\n\tAnswer:\n\r\nResult:\r\n\t<Style TargetType=\"{x:Type Expander}\">\n\t      <Setter Property=\"Background\" Value=\"White\"/>\n\t      <Setter Property=\"Foreground\" Value=\"Black\"/>\n\t      <Setter Property=\"BorderBrush\" Value=\"#D5DFE5\"/>\n\t      <Setter Property=\"BorderThickness\" Value=\"1\"/>\n\t      <Setter Property=\"Template\">\n\t            <Setter.Value>\n\t                  <ControlTemplate TargetType\n\r\nTokens:\r\n\tInput tokens: 104\r\n\tOutput tokens: 100\r\n\tTotal: 204\n\r\n"
+        },
+        {
+            "completionConfig": {
+                "label": "text-davinci-003",
+                "aiService": "OpenAI",
+                "deploymentOrModelId": "text-davinci-003",
+                "endpoint": null
+            },
+            "requestSettings": {
+                "temperature": 0,
+                "topP": 0,
+                "presencePenalty": 0,
+                "frequencyPenalty": 0,
+                "maxTokens": 0,
+                "stopSequences": []
+            },
+            "variables": [
+                {
+                    "key": "input",
+                    "value": "生成一个完整的Expander样式"
+                }
+            ],
+            "output": "Prompt:\r\n\tGenerate a full WPF style based on the following information:\r\n\t\r\n\tAsk:\r\n\t1.GroupBox;\r\n\t2.Simple;\r\n\tAnswer:\r\n\t<Style TargetType=\"{x:Type GroupBox}\">\r\n\t      <Setter Property=\"BorderBrush\" Value=\"#D5DFE5\"/>\r\n\t      <Setter Property=\"BorderThickness\" Value=\"1\"/>\r\n\t</Style>\r\n\t\r\n\tAsk:\r\n\t����һ��������Expander��ʽ\r\n\tAnswer:\n\r\nResult:\r\n\t<Style TargetType=\"{x:Type Expander}\">\n\t      <Setter Property=\"Background\" Value=\"White\"/>\n\t      <Setter Property=\"Foreground\" Value=\"Black\"/>\n\t      <Setter Property=\"BorderBrush\" Value=\"#D5DFE5\"/>\n\t      <Setter Property=\"BorderThickness\" Value=\"1\"/>\n\t      <Setter Property=\"Template\">\n\t            <Setter.Value>\n\t                  <ControlTemplate TargetType\n\r\nTokens:\r\n\tInput tokens: 109\r\n\tOutput tokens: 100\r\n\tTotal: 209\n\r\n"
+        },
+        {
+            "completionConfig": {
+                "label": "text-davinci-003",
+                "aiService": "OpenAI",
+                "deploymentOrModelId": "text-davinci-003",
+                "endpoint": null
+            },
+            "requestSettings": {
+                "temperature": 0,
+                "topP": 0,
+                "presencePenalty": 0,
+                "frequencyPenalty": 0,
+                "maxTokens": 0,
+                "stopSequences": []
+            },
+            "variables": [
+                {
+                    "key": "input",
+                    "value": "Generate a visual studio like expander style"
+                }
+            ],
+            "output": "Prompt:\r\n\tGenerate a full WPF style based on the following information:\r\n\t\r\n\t[Requirment]\r\n\tGenerate a visual studio like expander style\r\n\t[End]\n\r\nResult:\r\n\t<Style x:Key=\"ExpanderStyle\" TargetType=\"{x:Type Expander}\">\n\t    <Setter Property=\"Template\">\n\t        <Setter.Value>\n\t            <ControlTemplate TargetType=\"{x:Type Expander}\">\n\t                <Border Background=\"{TemplateBinding Background}\">\n\t                    <DockPanel>\n\t                        <ToggleButton x:Name=\"HeaderSite\" ContentTemplate=\"{TemplateBinding HeaderTemplate}\" Content\n\r\nTokens:\r\n\tInput tokens: 34\r\n\tOutput tokens: 100\r\n\tTotal: 134\n\r\n"
+        },
+        {
+            "completionConfig": {
+                "label": "text-davinci-003",
+                "aiService": "OpenAI",
+                "deploymentOrModelId": "text-davinci-003",
+                "endpoint": null
+            },
+            "requestSettings": {
+                "temperature": 0,
+                "topP": 0,
+                "presencePenalty": 0,
+                "frequencyPenalty": 0,
+                "maxTokens": 0,
+                "stopSequences": []
+            },
+            "variables": [
+                {
+                    "key": "input",
+                    "value": "1.expander"
+                }
+            ],
+            "output": "Prompt:\r\n\tGenerate a WPF style based on the following information:\r\n\t\r\n\t[Requirment]\r\n\t1.expander\r\n\t[End]\n\r\nResult:\r\n\t<Style x:Key=\"ExpanderStyle\" TargetType=\"Expander\">\n\t    <Setter Property=\"Background\" Value=\"White\" />\n\t    <Setter Property=\"Foreground\" Value=\"Black\" />\n\t    <Setter Property=\"BorderBrush\" Value=\"LightGray\" />\n\t    <Setter Property=\"BorderThickness\" Value=\"1\" />\n\t    <Setter Property=\"Padding\" Value=\"5\" />\n\t    <Setter Property=\"Template\">\n\t        <Setter.Value>\n\t            <ControlTemplate TargetType=\"Expander\">\n\t                <Border Background=\"{TemplateBinding Background}\"\n\t                        BorderBrush=\"{TemplateBinding BorderBrush}\"\n\t                        BorderThickness=\"{TemplateBinding BorderThickness}\">\n\t                    <DockPanel>\n\t                        <ToggleButton DockPanel.Dock=\"Top\"\n\t                                      Content=\"{TemplateBinding Header}\"\n\t                                      IsChecked=\"{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}\"\n\t                                      Foreground=\"{TemplateBinding Foreground}\" />\n\t                        <ContentPresenter DockPanel.Dock=\"Bottom\"\n\t                                          Content=\"{TemplateBinding Content}\"\n\t                                          ContentTemplate=\"{TemplateBinding ContentTemplate}\"\n\t                                          ContentStringFormat=\"{TemplateBinding ContentStringFormat}\"\n\t                                          Visibility=\"Collapsed\"\n\t                                          IsHitTestVisible=\"False\"\n\t                                          Margin=\"{TemplateBinding Padding}\"\n\t                                          x:Name=\"ExpanderContent\" />\n\t                    </DockPanel>\n\t                </Border>\n\t                <ControlTemplate.Triggers>\n\t                    <Trigger Property=\"IsExpanded\" Value=\"True\">\n\t                        <Setter TargetName=\"ExpanderContent\" Property=\"Visibility\" Value=\"Visible\" />\n\t                    </Trigger>\n\t                </ControlTemplate.Triggers>\n\t            </ControlTemplate>\n\t        </Setter.Value>\n\t    </Setter>\n\t</Style>\n\r\nTokens:\r\n\tInput tokens: 28\r\n\tOutput tokens: 439\r\n\tTotal: 467\n\r\n"
+        }
+    ]
+}

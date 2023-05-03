@@ -5,6 +5,8 @@ using Microsoft.SemanticKernel;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace CCodeAI.ViewModels
 {
@@ -13,7 +15,8 @@ namespace CCodeAI.ViewModels
     {
         private AsyncRelayCommand _sendCommand;
         private string _question;
-        private bool _isLoading = false;       
+        private bool _isLoading = false;
+        private CancellationTokenSource _coreSkillcancellationTokenSource;
 
         public CCodeExplainWindowControlViewModel()
         {
@@ -48,31 +51,97 @@ namespace CCodeAI.ViewModels
 
         private async Task SendAsync(CancellationToken cancellationToken)
         {
-            AiLoading();
-            var chatFunc = SKernel.CreateSemanticFunction(Resources.Resources.Chat);
-
-            ChatDatas.Add(new ChatData()
+            if (string.IsNullOrWhiteSpace(Question))
             {
-                Who = EWho.User,
-                Content = Question,
-            });
-
-            var input = Question;
-            Question = "";
-
-            var result = await SKernel.RunAsync(input, chatFunc);
-
-            if (result.ErrorOccurred)
-            {
-                await VS.MessageBox.ShowErrorAsync(result.LastErrorDescription);
                 return;
             }
-            ChatDatas.Add(new ChatData()
+
+            AiLoading();
+            try
             {
-                Content = result.ToString().Trim(),
-                Who = EWho.Assistant
-            });
-            AiLoaded();
+                var chatFunc = SKernel.CreateSemanticFunction(Resources.Resources.Chat);
+
+                ChatDatas.Add(new ChatData()
+                {
+                    Who = EWho.User,
+                    Content = Question,
+                });
+
+                var input = Question;
+                Question = "";
+
+                var result = await SKernel.RunAsync(input, chatFunc);
+
+                if (result.ErrorOccurred)
+                {
+                    await VS.MessageBox.ShowErrorAsync(result.LastErrorDescription);
+                    return;
+                }
+                ChatDatas.Add(new ChatData()
+                {
+                    Content = result.ToString().Trim(),
+                    Who = EWho.Assistant
+                });
+            }
+            catch (Exception ex)
+            {
+                await VS.MessageBox.ShowErrorAsync(ex.Message);
+            }
+            finally
+            {
+                AiLoaded();
+            }
+        }
+
+        public async Task<string> CodeSkillAsync(
+            string code,
+            string extension,
+            string semanticFuncation)
+        {
+            AiLoading();
+
+            try
+            {
+                ChatDatas.Add(new ChatData()
+                {
+                    Content = Resources.Resources.InquiryAI,
+                    Who = EWho.PlugIn
+                });
+
+                var explainFunc = SKernel.CreateSemanticFunction(semanticFuncation);
+
+                var context = SKernel.CreateNewContext();
+                context.Variables["extension"] = extension;
+
+                _coreSkillcancellationTokenSource = new CancellationTokenSource();
+                var result = await explainFunc.InvokeAsync(code, context, cancel: _coreSkillcancellationTokenSource.Token);
+
+                if (result.ErrorOccurred)
+                {
+                    await VS.MessageBox.ShowErrorAsync(result.LastErrorDescription);
+                    return null;
+                }
+
+                var content = result.ToString().Trim();
+
+                ChatDatas.Add(new ChatData()
+                {
+                    Content = content,
+                    Who = EWho.Assistant
+                });
+
+                return content;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                AiLoaded();                
+                _coreSkillcancellationTokenSource?.Dispose();
+                _coreSkillcancellationTokenSource = null;
+            }
         }
 
         [RelayCommand]
@@ -86,8 +155,35 @@ namespace CCodeAI.ViewModels
         [RelayCommand]
         private void OpenCodeGenWindow()
         {
-            var window = new CodeGenWindow("c#");
-            window.ShowDialog();
+            var window = new CodeGenWindow("c#",justCopy:true);
+            if (window.ShowDialog() == true)
+            {
+                Clipboard.SetText(window.VM.Output);
+            }
+        }
+
+        [RelayCommand]
+        private async void Cancel()
+        {
+            try
+            {
+                if (SendCommand.IsRunning)
+                {
+                    SendCommand.Cancel();
+                }
+                else
+                {
+                    _coreSkillcancellationTokenSource?.Cancel();
+                }
+            }
+            catch (Exception ex)
+            {
+                await VS.MessageBox.ShowErrorAsync(ex.Message);
+            }
+            finally
+            {
+                AiLoaded();
+            }
         }
     }
 }
