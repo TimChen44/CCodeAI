@@ -51,6 +51,7 @@
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Models\ChatData.cs" />
     <Compile Include="Models\WelcomeChatData.cs" />
+    <Compile Include="Models\EWho.cs" />
     <Compile Include="Views\AvalonEditBehaviour.cs" />
     <Compile Include="Commands\CCodeAICommandId.cs" />
     <Compile Include="Commands\CCodeAddAskCommandId.cs" />

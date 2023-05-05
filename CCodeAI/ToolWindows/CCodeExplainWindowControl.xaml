@@ -150,29 +150,47 @@
             VerticalScrollBarVisibility="Auto">
             <ItemsControl
                 Name="cChatList"
+                Grid.Row="1"
                 BorderThickness="0"
-                ItemsSource="{Binding ChatDatas}">
+                ItemsSource="{Binding ChatDatas}"
+                ScrollViewer.CanContentScroll="True"
+                ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="0,5,0,5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Image
-                                Margin="5,10,10,10"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                Source="{Binding WhoText, Converter={StaticResource WhoToImageConverter}}" />
-                            <Border
-                                Grid.Column="1"
-                                Padding="5,2"
-                                BorderBrush="#19000000"
-                                BorderThickness="1"
-                                CornerRadius="5">
-                                <markdown:MarkdownScrollViewer Markdown="{Binding Content}" VerticalScrollBarVisibility="Disabled" />
-                            </Border>
-                        </Grid>
+                        <Border
+                            Padding="5,0"
+                            BorderBrush="#19000000"
+                            BorderThickness="0,0,0,2">
+                            <Grid Margin="0,5,0,5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="28" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image
+                                        Width="28"
+                                        Height="28"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Source="{Binding WhoText, Converter={StaticResource WhoToImageConverter}}" />
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        FontWeight="Black"
+                                        Text="{Binding WhoText}" />
+                                </Grid>
+                                <markdown:MarkdownScrollViewer
+                                    Grid.Row="1"
+                                    Markdown="{Binding Content}"
+                                    VerticalScrollBarVisibility="Disabled" />
+                            </Grid>
+                        </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
