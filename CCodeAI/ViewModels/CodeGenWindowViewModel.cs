@@ -16,6 +16,7 @@ public partial class CodeGenWindowViewModel : ObservableObject
 {
     private IAsyncRelayCommand _sendCommand;
     private string _output;
+    private RelayCommand<Window> _insertCommand;
 
     public CodeGenWindowViewModel(string language)
     {
@@ -23,7 +24,7 @@ public partial class CodeGenWindowViewModel : ObservableObject
 
         var dir = Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "CCodeAI","CCodeAISkills");
+            "CCodeAI", "CCodeAISkills");
 
         if (!Directory.Exists(dir))
         {
@@ -52,9 +53,18 @@ public partial class CodeGenWindowViewModel : ObservableObject
 
     public string Input { get; set; }
 
-    public string Output { get => _output; set => SetProperty(ref _output , value); }
+    public string Output
+    {
+        get => _output; set
+        {
+            SetProperty(ref _output, value);
+            InsertCommand.NotifyCanExecuteChanged();
+        }
+    }
 
     public IAsyncRelayCommand SendCommand { get => _sendCommand ??= new AsyncRelayCommand(SendAsync); }
+
+    public RelayCommand<Window> InsertCommand { get => _insertCommand ??= new RelayCommand<Window>(Insert,CanInsert);}
 
     public Action CloseAction { get; internal set; }
 
@@ -102,11 +112,10 @@ public partial class CodeGenWindowViewModel : ObservableObject
         }
     }
 
-    [RelayCommand(CanExecute = nameof(CanInsert))]
     private void Insert(Window window)
     {
         window.DialogResult = true;
     }
 
-    private bool CanInsert() => !string.IsNullOrWhiteSpace(Output);
+    public bool CanInsert(Window window) => !string.IsNullOrWhiteSpace(Output);
 }

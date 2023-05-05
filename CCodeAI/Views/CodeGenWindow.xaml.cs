@@ -19,7 +19,6 @@ public partial class CodeGenWindow : Window
         DataContext = VM = new CodeGenWindowViewModel(language)
         {
             Input = input,
-            CloseAction = () => this.Close(),
             DialogResult = (b) => { DialogResult = b; },
             JustCopy = justCopy,
         };
