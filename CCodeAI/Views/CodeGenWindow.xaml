@@ -12,6 +12,7 @@
     xmlns:res="clr-namespace:CCodeAI.Resources"
     xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
     xmlns:viewmodels="clr-namespace:CCodeAI.ViewModels"
+    x:Name="window"
     Title="CodeGen"
     Width="800"
     Height="800"
@@ -201,14 +202,15 @@
                 Height="23"
                 Margin="0,0,15,0"
                 HorizontalAlignment="Right"
-                Command="{Binding CancelCommand}"
-                Content="{x:Static res:Resources.CancleBtn}" />
+                Content="{x:Static res:Resources.CancleBtn}"
+                IsCancel="True" />
             <Button
                 Width="75"
                 Height="23"
                 Margin="0,0,120,0"
                 HorizontalAlignment="Right"
                 Command="{Binding InsertCommand}"
+                CommandParameter="{Binding ElementName=window}"
                 Content="{Binding ActionBtnName}" />
         </Grid>
     </Grid>

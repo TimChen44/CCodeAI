@@ -16,7 +16,7 @@
             <Style TargetType="Section">
                 <Style.Triggers>
                     <Trigger Property="Tag" Value="Blockquote">
-                        <Setter Property="Padding" Value="10,5" />
+                        <!--<Setter Property="Padding" Value="10,5" />-->
                         <Setter Property="BorderBrush" Value="#DEDEDE" />
                         <Setter Property="BorderThickness" Value="5,0,0,0" />
                     </Trigger>
@@ -24,56 +24,51 @@
             </Style>
 
             <Style xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit" TargetType="avalonEdit:TextEditor">
-                <Setter Property="Background" Value="#EEEEEE" />
-                <Setter Property="BorderBrush" Value="#DEDEDE" />
-                <Setter Property="BorderThickness" Value="0,5,0,5" />
+                <Setter Property="BorderBrush" Value="#19000000" />
+                <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="FontFamily" Value="Consolas" />
                 <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
                 <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
-                <Setter Property="Padding" Value="5,0,5,0" />
+                <Setter Property="Margin" Value="2" />
+                <Setter Property="Padding" Value="5,2" />
+                <Setter Property="Background" Value="{DynamicResource VsBrush.Window}" />
             </Style>
 
             <Style TargetType="Paragraph">
+                <Setter Property="Margin" Value="0,5" />
+                <!--<Setter Property="Padding" Value="0" />-->
                 <Style.Triggers>
                     <Trigger Property="Tag" Value="Heading1">
-                        <Setter Property="FontSize" Value="42" />
-                        <Setter Property="Foreground" Value="#ff000000" />
-                        <Setter Property="FontWeight" Value="Light" />
+                        <Setter Property="FontSize" Value="30" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
                     </Trigger>
 
                     <Trigger Property="Tag" Value="Heading2">
                         <Setter Property="FontSize" Value="20" />
-                        <Setter Property="Foreground" Value="#ff000000" />
-                        <Setter Property="FontWeight" Value="Light" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
                     </Trigger>
 
                     <Trigger Property="Tag" Value="Heading3">
-                        <Setter Property="FontSize" Value="20" />
-                        <Setter Property="Foreground" Value="#99000000" />
-                        <Setter Property="FontWeight" Value="Light" />
+                        <Setter Property="FontSize" Value="16" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
                     </Trigger>
 
                     <Trigger Property="Tag" Value="Heading4">
                         <Setter Property="FontSize" Value="14" />
-                        <Setter Property="Foreground" Value="#99000000" />
-                        <Setter Property="FontWeight" Value="Light" />
+                        <Setter Property="FontWeight" Value="SemiBold" />
                     </Trigger>
 
                     <Trigger Property="Tag" Value="CodeBlock">
                         <Setter Property="FontFamily" Value="Courier New" />
                         <Setter Property="Foreground" Value="DarkBlue" />
-                        <Setter Property="Background" Value="#EEEEEE" />
                         <Setter Property="BorderBrush" Value="#DEDEDE" />
-                        <Setter Property="BorderThickness" Value="0,5,0,5" />
-                        <Setter Property="Margin" Value="5,0,5,0" />
                     </Trigger>
 
                     <Trigger Property="Tag" Value="Note">
-                        <Setter Property="Margin" Value="5,0,5,0" />
-                        <Setter Property="Padding" Value="10,5" />
                         <Setter Property="BorderBrush" Value="#DEDEDE" />
                         <Setter Property="BorderThickness" Value="3,3,3,3" />
                         <Setter Property="Background" Value="#FAFAFA" />
+                        <Setter Property="Padding" Value="5,2" />
                     </Trigger>
 
                 </Style.Triggers>
@@ -84,7 +79,6 @@
                     <Trigger Property="Tag" Value="CodeSpan">
                         <Setter Property="FontFamily" Value="Courier New" />
                         <Setter Property="Foreground" Value="DarkBlue" />
-                        <Setter Property="Background" Value="#E0E0E0" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -93,7 +87,6 @@
                     <Trigger Property="Tag" Value="CodeSpan">
                         <Setter Property="FontFamily" Value="Courier New" />
                         <Setter Property="Foreground" Value="DarkBlue" />
-                        <Setter Property="Background" Value="#E0E0E0" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -126,7 +119,6 @@
                 <Style.Triggers>
                     <Trigger Property="Tag" Value="TableHeader">
                         <Setter Property="FontWeight" Value="DemiBold" />
-                        <Setter Property="Background" Value="LightGray" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -136,9 +128,7 @@
                 <Setter Property="BorderBrush" Value="Gray" />
                 <Setter Property="Padding" Value="2" />
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TableRow}}, Path=Tag}" Value="EvenTableRow">
-                        <Setter Property="Background" Value="#F5F5F5" />
-                    </DataTrigger>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type TableRow}}, Path=Tag}" Value="EvenTableRow" />
                 </Style.Triggers>
             </Style>
 
@@ -185,8 +175,8 @@
                 <Setter Property="Background" Value="#EEEEEE" />
                 <Setter Property="BorderBrush" Value="#DEDEDE" />
                 <Setter Property="BorderThickness" Value="0,5,0,5" />
-                <Setter Property="FontFamily" Value="Consolas"/>
-                <Setter Property="Background" Value="{DynamicResource VsBrush.Window}"/>
+                <Setter Property="FontFamily" Value="Consolas" />
+                <Setter Property="Background" Value="{DynamicResource VsBrush.Window}" />
                 <Setter Property="HorizontalScrollBarVisibility" Value="Auto" />
                 <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
                 <Setter Property="Margin" Value="5,0,5,0" />

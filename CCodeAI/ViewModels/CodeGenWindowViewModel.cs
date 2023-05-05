@@ -6,6 +6,7 @@ using Microsoft.SemanticKernel.Orchestration;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Documents;
 
@@ -101,15 +102,11 @@ public partial class CodeGenWindowViewModel : ObservableObject
         }
     }
 
-    [RelayCommand]
-    private void Cancel()
+    [RelayCommand(CanExecute = nameof(CanInsert))]
+    private void Insert(Window window)
     {
-        DialogResult.Invoke(false);
+        window.DialogResult = true;
     }
 
-    [RelayCommand]
-    private void Insert()
-    {
-        DialogResult?.Invoke(true);
-    }
+    private bool CanInsert() => !string.IsNullOrWhiteSpace(Output);
 }
