@@ -89,7 +89,7 @@
   </Commands>
 
   <KeyBindings>
-    <KeyBinding guid="CCodeAI" id="CCodeCodeGenCommandId" mod1="Control" key1="C" mod2="Control" key2="G" editor="guidVSStd97"></KeyBinding>
+    <KeyBinding guid="CCodeAI" id="CCodeCodeGenCommandId" mod1="Alt" key1="C" mod2="Alt" key2="G" editor="guidVSStd97"></KeyBinding>
   </KeyBindings>
 
   <Symbols>

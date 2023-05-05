@@ -32,6 +32,7 @@
                 <Setter Property="Margin" Value="2" />
                 <Setter Property="Padding" Value="5,2" />
                 <Setter Property="Background" Value="{DynamicResource VsBrush.Window}" />
+                <Setter Property="Foreground" Value="{DynamicResource VsBrush.WindowText}" />
             </Style>
 
             <Style TargetType="Paragraph">
