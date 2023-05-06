@@ -4,8 +4,12 @@
         <Identity Id="CCode.ee1b2319-5a85-4ecc-bc6e-4264f753f94e" Version="2023.0430.1" Language="en-US" Publisher="TimChen" />
         <DisplayName>CCodeAI</DisplayName>
         <Description xml:space="preserve">Help you understand and optimize the code</Description>
+        <MoreInfo>https://github.com/TimChen44/CCodeAI</MoreInfo>
+        <GettingStartedGuide>https://github.com/TimChen44/CCodeAI</GettingStartedGuide>
+        <ReleaseNotes>https://github.com/TimChen44/CCodeAI</ReleaseNotes>
         <Icon>Resources\Icon.png</Icon>
         <PreviewImage>Resources\Icon.png</PreviewImage>
+        <Tags>ChatGPT;Copilot;OpenAI</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Version="[16.0,17.0)" Id="Microsoft.VisualStudio.Community">
