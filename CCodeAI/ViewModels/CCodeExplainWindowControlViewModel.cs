@@ -3,8 +3,12 @@ using CCodeAI.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.KernelExtensions;
+using Microsoft.SemanticKernel.Orchestration;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,11 +25,13 @@ namespace CCodeAI.ViewModels
 
         public CCodeExplainWindowControlViewModel()
         {
-            ChatDatas.Add(new ChatData()
-            {
-                Who = EWho.PlugIn,
-                Content = "遇事不决，问AI。"
-            });
+            ChatDatas.Add(new WelcomeChatData());
+
+            var dir = Path.Combine(
+                Path.GetDirectoryName(typeof(CCodeExplainWindowControlViewModel).Assembly.Location),
+                "CCodeAISkills");
+
+            SkillsProvider = new SkillsProvider(dir);
 
             KernelFactory.Init();
         }
@@ -39,6 +45,10 @@ namespace CCodeAI.ViewModels
         public AsyncRelayCommand SendCommand { get => _sendCommand ??= new AsyncRelayCommand(SendAsync); }
 
         public bool IsLoading { get => _isLoading; set => SetProperty(ref _isLoading , value); }
+
+        public SkillsProvider SkillsProvider { get; }
+
+        public bool AddHistory { get; set; } = true;
 
         public void AiLoading()
         {
@@ -60,18 +70,23 @@ namespace CCodeAI.ViewModels
             AiLoading();
             try
             {
-                var chatFunc = SKernel.CreateSemanticFunction(Resources.Resources.Chat);
+                var input = Question;
+                Question = "";
+
+                var chatSkill = SKernel.ImportSemanticSkillFromDirectory(SkillsProvider.SkillsLocation, "ChatSkill");
+
+                var contextVariables = new ContextVariables();
+                contextVariables["culture"] = System.Globalization.CultureInfo.CurrentCulture.EnglishName;
+                contextVariables["input"] = input;
+                contextVariables["history"] = AddHistory ? ChatDatas.GetChatContext() : "";
 
                 ChatDatas.Add(new ChatData()
                 {
                     Who = EWho.User,
-                    Content = Question,
+                    Content = input,
                 });
 
-                var input = Question;
-                Question = "";
-
-                var result = await SKernel.RunAsync(input, chatFunc);
+                var result = await SKernel.RunAsync(contextVariables,cancellationToken:cancellationToken, chatSkill["Chat"]);
 
                 if (result.ErrorOccurred)
                 {
@@ -113,6 +128,7 @@ namespace CCodeAI.ViewModels
 
                 var context = SKernel.CreateNewContext();
                 context.Variables["extension"] = extension;
+                context.Variables["culture"] = System.Globalization.CultureInfo.CurrentCulture.EnglishName;
 
                 _coreSkillcancellationTokenSource = new CancellationTokenSource();
                 var result = await explainFunc.InvokeAsync(code, context, cancel: _coreSkillcancellationTokenSource.Token);

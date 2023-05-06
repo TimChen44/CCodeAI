@@ -5,6 +5,6 @@ public class WelcomeChatData:ChatData
     public WelcomeChatData()
     {
         Who = EWho.Welcome;
-        Content = Resources.Resources.InquiryAI;
+        Content = Resources.Resources.WhenDoubtAI;
     }
 }

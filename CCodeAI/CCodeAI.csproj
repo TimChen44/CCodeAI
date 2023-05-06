@@ -50,6 +50,7 @@
     <Compile Include="Converters\WhoToStringConverter.cs" />
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Models\ChatData.cs" />
+    <Compile Include="Models\ChatListExtension.cs" />
     <Compile Include="Models\WelcomeChatData.cs" />
     <Compile Include="Models\EWho.cs" />
     <Compile Include="Views\AvalonEditBehaviour.cs" />

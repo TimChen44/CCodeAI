@@ -1,9 +1,12 @@
 ﻿using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Memory;
 using System.Threading;
 using System.Threading.Tasks;
 
 public class KernelFactory
 {
+    public static bool UseAzureOpenAI { get; } = true;
+
     public static IKernel SKernel { get; private set; }
 
     public static void Init()
@@ -15,20 +18,33 @@ public class KernelFactory
 
         SKernel = Kernel.Builder.Configure(c =>
         {
-            //c.AddOpenAITextCompletionService(
-            //    "ccode",
-            //    OpenAIConfig.Model,
-            //    OpenAIConfig.OpenAIKey
-            //    );
-            c.AddAzureTextCompletionService
-            (
-                "ccode",
-                "text-davinci-003",
-                AzureConfig.Endpoint,
-                AzureConfig.AppKey
-            );
-
+            if (UseAzureOpenAI)
+            {
+                c.AddAzureTextCompletionService
+                (
+                    "ccode",
+                    "text-davinci-003",
+                    AzureConfig.Endpoint,
+                    AzureConfig.AppKey
+                );
+                c.AddAzureTextEmbeddingGenerationService
+                (
+                    "ada", 
+                    "text-embedding-ada-002",
+                    AzureConfig.Endpoint,
+                    AzureConfig.AppKey
+                );
+            }
+            else
+            {
+                //c.AddOpenAITextCompletionService(
+                //    "ccode",
+                //    OpenAIConfig.Model,
+                //    OpenAIConfig.OpenAIKey
+                //    );
+            }
         })
+        .WithMemoryStorage(new VolatileMemoryStore())
         .Build();
     }
 

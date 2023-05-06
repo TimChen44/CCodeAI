@@ -10,6 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="CCodeAISkills\ChatSkill\Chat\skprompt.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="CCodeAISkills\ChatSkill\Chat\skprompt.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="2.9.8" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.3.1" />
   </ItemGroup>
@@ -20,6 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="CCodeAISkills\ChatSkill\Chat\config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Skills\ClassSkill\GenerateClass\config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

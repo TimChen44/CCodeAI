@@ -14,4 +14,14 @@ public class ChatData
     }
 
     public override string ToString() => $"{Who}:{Content}";
+
+    public virtual string History { get
+        {
+            return Who switch
+            {
+                EWho.User => $"Me: {Content}",
+                _ => $"AI: {Content}"
+            };
+        } 
+    }
 }
