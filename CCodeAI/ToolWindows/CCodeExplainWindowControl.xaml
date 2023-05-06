@@ -10,6 +10,7 @@
     xmlns:local="clr-namespace:CCodeAI.ToolWindows"
     xmlns:markdown="clr-namespace:MdXaml;assembly=MdXaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:CCodeAI.Models"
     xmlns:platform="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
     xmlns:theming="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Imaging"
     xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
@@ -22,7 +23,7 @@
     toolkit:Themes.UseVsTheme="True"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <local:WhoToImageConverter x:Key="WhoToImageConverter" />
+        <local:WhoToStringConverter x:Key="WhoToStringConverter" />
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <Style x:Key="RoundTextBox" TargetType="TextBox">
             <Setter Property="Foreground" Value="Black" />
@@ -111,139 +112,120 @@
                 </DrawingGroup>
             </DrawingImage.Drawing>
         </DrawingImage>
-    </UserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" MinHeight="100" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="100" MinHeight="50" />
-        </Grid.RowDefinitions>
-        <StackPanel
-            Grid.Row="0"
-            Margin="0,0,0,2"
-            Orientation="Horizontal">
-            <Button
-                Name="cClearBtn"
-                Width="28"
-                Height="28"
-                Command="{Binding ClearCommand}"
-                Style="{StaticResource IconButton}"
-                ToolTip="清空记录">
-                <Image Source="{StaticResource CleanDataDrawingImage}" />
-            </Button>
-            <Button
-                Width="28"
-                Height="28"
-                Margin="5,0"
-                Command="{Binding OpenCodeGenWindowCommand}"
-                Style="{StaticResource IconButton}"
-                ToolTip="Open CodeGen Window">
-                <Image Source="{StaticResource PencilLine_dDrawingImage}" />
-            </Button>
-        </StackPanel>
-        <ScrollViewer
-            Name="_scrollViewer"
-            Grid.Row="1"
-            ex:ScrollViewerExtensions.AlwaysScrollToEnd="True"
-            HorizontalScrollBarVisibility="Disabled"
-            VerticalScrollBarVisibility="Auto">
-            <ItemsControl
-                Name="cChatList"
-                Grid.Row="1"
-                BorderThickness="0"
-                ItemsSource="{Binding ChatDatas}"
-                ScrollViewer.CanContentScroll="True"
-                ScrollViewer.VerticalScrollBarVisibility="Visible">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border
-                            Padding="5,0"
-                            BorderBrush="#19000000"
-                            BorderThickness="0,0,0,2">
-                            <Grid Margin="0,5,0,5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="28" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image
-                                        Width="28"
-                                        Height="28"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Source="{Binding WhoText, Converter={StaticResource WhoToImageConverter}}" />
-                                    <TextBlock
-                                        Grid.Column="1"
-                                        Margin="10,0,0,0"
-                                        VerticalAlignment="Center"
-                                        FontSize="12"
-                                        FontWeight="Black"
-                                        Text="{Binding WhoText}" />
-                                </Grid>
-                                <markdown:MarkdownScrollViewer
-                                    Grid.Row="1"
-                                    Markdown="{Binding Content}"
-                                    VerticalScrollBarVisibility="Disabled" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </ScrollViewer>
-        <Button
-            Grid.Row="1"
-            Margin="0,5"
-            VerticalAlignment="Bottom"
-            Background="{DynamicResource VsBrush.Window}"
-            BorderBrush="#19000000"
-            Command="{Binding CancelCommand}"
-            Style="{StaticResource IconButton}"
-            Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
-            <Image>
-                <Image.Source>
-                    <DrawingImage>
-                        <DrawingImage.Drawing>
-                            <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+        <DrawingImage x:Key="StopDrawingImage">
+            <DrawingImage.Drawing>
+                <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                    <DrawingGroup Opacity="1">
+                        <DrawingGroup Opacity="0.75">
+                            <GeometryDrawing Brush="#FFC50B17" Geometry="F1 M16,16z M0,0z M12.5,3.5L12.5,12.5 3.5,12.5 3.5,3.5z" />
+                        </DrawingGroup>
+                        <GeometryDrawing Brush="#FFC50B17" Geometry="F1 M16,16z M0,0z M12.5,3L3.5,3 3,3.5 3,12.5 3.5,13 12.5,13 13,12.5 13,3.5z M12,12L4,12 4,4 12,4z" />
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+        <DrawingImage x:Key="ChatGPTDrawingImage">
+            <DrawingImage.Drawing>
+                <DrawingGroup ClipGeometry="M0,0 V64 H64 V0 H0 Z">
+                    <DrawingGroup Opacity="1">
+                        <DrawingGroup.ClipGeometry>
+                            <RectangleGeometry
+                                RadiusX="0"
+                                RadiusY="0"
+                                Rect="0,0,64,64" />
+                        </DrawingGroup.ClipGeometry>
+                        <DrawingGroup Opacity="1">
+                            <DrawingGroup Opacity="1">
+                                <GeometryDrawing Brush="#FFE7F8FF">
+                                    <GeometryDrawing.Geometry>
+                                        <RectangleGeometry
+                                            RadiusX="10"
+                                            RadiusY="10"
+                                            Rect="0,0,64,64" />
+                                    </GeometryDrawing.Geometry>
+                                </GeometryDrawing>
+                            </DrawingGroup>
+                            <DrawingGroup Opacity="1">
                                 <DrawingGroup Opacity="1">
-                                    <DrawingGroup Opacity="0.75">
-                                        <GeometryDrawing Brush="#FFC50B17" Geometry="F1 M16,16z M0,0z M12.5,3.5L12.5,12.5 3.5,12.5 3.5,3.5z" />
+                                    <DrawingGroup Opacity="1">
+                                        <DrawingGroup Opacity="1">
+                                            <DrawingGroup Opacity="1">
+                                                <DrawingGroup Opacity="1">
+                                                    <GeometryDrawing Brush="#FF1F948C" Geometry="F0 M64,64z M0,0z M50.9504235916138,28.0383968887329C51.3131235916138,26.9290968887329 51.5051235916138,25.7770968887329 51.5051235916138,24.6036968887329 51.5051235916138,22.6836968887329 50.9931235916138,20.7850968887329 49.9904235916138,19.1210668887329 47.9804235916138,15.6922468887329 44.3009235916138,13.5885468887329 40.3264235916138,13.5957268887329 39.5371235916138,13.5957268887329 38.7691235916138,13.6810668887329 38.0011235916138,13.8303968887329 35.8904235916138,11.4993968887329 32.8897235916138,10.1735188087329 29.7451235916138,10.1823968887329L29.6597235916138,10.1823968887329C24.8171235916138,10.1823968887329 20.5504235916138,13.2543968887329 19.0570935916138,17.7983968887329 15.9560135916138,18.4051368887329 13.2707935916138,20.3275968887329 11.6970935916138,23.0676968887329 10.6944235916138,24.7530968887329 10.1824235916138,26.6516968887329 10.1824235916138,28.5930968887329 10.1824235916138,31.3023968887329 11.2064235916138,33.9476968887329 13.0624235916138,35.9530968887329 12.6784235916138,37.0623968887329 12.4864235916138,38.2356968887329 12.4864235916138,39.3876968887329 12.4864235916138,41.3290968887329 13.0197535916138,43.2276968887329 14.0010935916138,44.8916968887329 16.4117535916138,49.0303968887329 21.2757235916138,51.1636968887329 26.0117235916138,50.1610968887329 28.1141235916138,52.4911968887329 31.1080235916138,53.8175968887329 34.2464235916138,53.8090968887329L34.3531235916138,53.8090968887329C39.1744235916138,53.8090968887329 43.4624235916138,50.7370968887329 44.9557235916138,46.1930968887329 48.0543235916138,45.5804968887329 50.7374235916138,43.6595968887329 52.3157235916138,40.9236968887329 53.2971235916138,39.2596968887329 53.8091235916138,37.3610968887329 53.8091235916138,35.4196968887329 53.8091235916138,32.6890968887329 52.7851235916138,30.0650968887329 50.9504235916138,28.0383968887329z M29.2693235916138,48.9194968887329C29.1840235916138,48.9834968887329 29.0987235916138,49.0260968887329 29.0133235916138,49.0687968887329 30.5067235916138,50.3060968887329 32.3627235916138,50.9674968887329 34.3040235916138,50.9674968887329L34.3253235916138,50.9674968887329C38.8907235916138,50.9674968887329,42.6027235916138,47.2980968887329,42.6027235916138,42.7967968887329L42.6027235916138,32.6420968887329C42.6027235916138,32.5994968887329,42.5600235916138,32.5567968887329,42.5173235916138,32.5354968887329L38.8053235916138,30.4234968887329 38.8053235916138,42.6900968887329C38.8053235916138,43.1807968887329,38.5280235916138,43.6500968887329,38.0800235916138,43.9060968887329L29.2693235916138,48.9194968887329z M27.8400235916138,46.4596968887329L36.7360235916138,41.3823968887329C36.7787235916138,41.3610968887329,36.8000235916138,41.3183968887329,36.8000235916138,41.2756968887329L36.8000235916138,37.0303968887329 26.0480235916138,43.1530968887329C25.6000235916138,43.4090968887329,25.0453235916138,43.4090968887329,24.5973235916138,43.1530968887329L15.7866935916138,38.1396968887329C15.7013535916138,38.0970968887329 15.5946935916138,38.0116968887329 15.5306935916138,37.9903968887329 15.4453535916138,38.4383968887329 15.4026935916138,38.9076968887329 15.4026935916138,39.3770968887329 15.4026935916138,40.8063968887329 15.7866935916138,42.2143968887329 16.5120235916138,43.4730968887329L16.5120235916138,43.4516968887329C18.0053535916138,45.9903968887329 20.7360235916138,47.5476968887329 23.7013235916138,47.5476968887329 25.1520235916138,47.5476968887329 26.5813235916138,47.1636968887329 27.8400235916138,46.4596968887329z M18.5088235916138,21.2074968887329L18.5088235916138,20.9087968887329C16.6954935916138,21.5700968887329 15.1594935916138,22.8287968887329 14.1994935916138,24.4927968887329 13.4743235916138,25.7283968887329 13.0914135916138,27.1347968887329 13.0901535916138,28.5674968887329 13.0901535916138,31.4900968887329 14.6688235916138,34.1994968887329 17.2288235916138,35.6714968887329L26.1248235916138,40.7274968887329C26.1675235916138,40.7487968887329,26.2101235916138,40.7487968887329,26.2528235916138,40.7274968887329L29.9861235916138,38.5940968887329 19.2341635916138,32.4714968887329C18.7846735916138,32.2329968887329,18.5051235916138,31.7642968887329,18.5088235916138,31.2554968887329L18.5088235916138,21.2074968887329z M46.7819235916138,28.3263968887329L37.8645235916138,23.2490968887329C37.8219235916138,23.2490968887329,37.7792235916138,23.2490968887329,37.7365235916138,23.2703968887329L34.0245235916138,25.3823968887329 44.7765235916138,31.5050968887329C45.2245235916138,31.7610968887329,45.5019235916138,32.2303968887329,45.5019235916138,32.7423968887329L45.5019235916138,43.0890968887329C48.7445235916138,41.8943968887329 50.9205235916138,38.8436968887329 50.9205235916138,35.4090968887329 50.9205235916138,32.4863968887329 49.3419235916138,29.7983968887329 46.7819235916138,28.3263968887329z M27.2789235916138,22.6196968887329C27.2363235916138,22.6410968887329,27.2149235916138,22.6836968887329,27.2149235916138,22.7263968887329L27.2149235916138,26.9716968887329 37.9669235916138,20.8490968887329C38.4171235916138,20.5950968887329,38.9674235916138,20.5950968887329,39.4176235916138,20.8490968887329L48.2283235916138,25.8623968887329C48.3136235916138,25.9050968887329 48.3989235916138,25.9690968887329 48.4843235916138,26.0116968887329 48.5483235916138,25.5636968887329 48.5909235916138,25.0943968887329 48.5909235916138,24.6250968887329 48.5909235916138,20.1237268887329 44.8789235916138,16.4543968887329 40.3136235916138,16.4543968887329 38.8629235916138,16.4543968887329 37.4336235916138,16.8383968887329 36.1749235916138,17.5423968887329L27.2789235916138,22.6196968887329z M29.6960235916138,13.0367968887329C25.1093235916138,13.0367968887329,21.3973235916138,16.7061268887329,21.3973235916138,21.2074968887329L21.3973235916138,31.3620968887329C21.3973235916138,31.4047968887329,21.4400235916138,31.4260968887329,21.4613235916138,31.4474968887329L25.1947235916138,33.5807968887329 25.1947235916138,21.3140968887329C25.1947235916138,20.8234968887329,25.4720235916138,20.3540968887329,25.9200235916138,20.0981268887329L34.7307235916138,15.0847968887329C34.8160235916138,15.0207968887329 34.9227235916138,14.9567968887329 34.9867235916138,14.9354668887329 33.4933235916138,13.6981268887329 31.6160235916138,13.0367968887329 29.6960235916138,13.0367968887329z M27.2128235916138,34.7370968887329L31.9915235916138,37.4463968887329 36.7915235916138,34.7370968887329 36.7915235916138,29.2756968887329 31.9915235916138,26.5450968887329 27.2128235916138,29.2756968887329 27.2128235916138,34.7370968887329z" />
+                                                </DrawingGroup>
+                                            </DrawingGroup>
+                                        </DrawingGroup>
                                     </DrawingGroup>
-                                    <GeometryDrawing Brush="#FFC50B17" Geometry="F1 M16,16z M0,0z M12.5,3L3.5,3 3,3.5 3,12.5 3.5,13 12.5,13 13,12.5 13,3.5z M12,12L4,12 4,4 12,4z" />
                                 </DrawingGroup>
                             </DrawingGroup>
-                        </DrawingImage.Drawing>
-                    </DrawingImage>
-                </Image.Source>
-            </Image>
-        </Button>
-        <GridSplitter
-            Grid.Row="2"
-            Height="3"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Background="{DynamicResource VsBrush.Window}"
-            ResizeBehavior="PreviousAndNext"
-            ResizeDirection="Rows" />
-        <ProgressBar
-            Name="cProgressBar"
-            Grid.Row="3"
-            Height="4"
-            VerticalAlignment="Top"
-            IsIndeterminate="{Binding IsLoading}"
-            Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}"
-            Value="100" />
-        <Grid Grid.Row="3" Margin="0,4,0,0">
+                        </DrawingGroup>
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+        <DrawingImage x:Key="User_FlatDrawingImage">
+            <DrawingImage.Drawing>
+                <DrawingGroup ClipGeometry="M0,0 V32 H32 V0 H0 Z">
+                    <GeometryDrawing Brush="#FF7D4533" Geometry="F1 M32,32z M0,0z M3,17L5.07426,12.2528C6.84639,8.55421,10.6249,6,15,6L17,6C21.3751,6,25.1536,8.55421,26.9257,12.2528L29,17 29,19C29,19 27.8002,21.4006 27.4315,22.5 25.9695,26.8592 21.8515,30 17,30L15,30C10.1955,30 6.11048,26.9198 4.61181,22.6265 4.21545,21.491 3,19 3,19L3,17z" />
+                    <GeometryDrawing Brush="#FFE39D89" Geometry="F1 M32,32z M0,0z M7,13.9531C7,11.4765,9.00772,9.46875,11.4844,9.46875L20.5156,9.46875C22.9923,9.46875,25,11.4765,25,13.9531L25,14.0938C25,15.6893 24.1668,17.0902 22.9117,17.885 22.9698,18.2481 23,18.6205 23,19 23,22.866 19.866,26 16,26 12.134,26 9,22.866 9,19 9,18.6205 9.0302,18.2481 9.08832,17.885 7.83324,17.0902 7,15.6893 7,14.0938L7,13.9531z" />
+                    <GeometryDrawing Brush="#FFE39D89" Geometry="F1 M32,32z M0,0z M4,17.0001C4,15.2701 4.39939,13.6333 5.11099,12.177 2.74592,12.7924 1,14.9424 1,17.5001 1,19.8805 2.51216,21.9076 4.62827,22.6734 4.22142,21.5247 4,20.2882 4,19.0001L4,17.0001z" />
+                    <GeometryDrawing Brush="#FFE39D89" Geometry="F1 M32,32z M0,0z M28,19.0001C28,20.2882 27.7786,21.5247 27.3717,22.6734 29.4878,21.9076 31,19.8805 31,17.5001 31,14.9424 29.2541,12.7924 26.889,12.177 27.6006,13.6333 28,15.2701 28,17.0001L28,19.0001z" />
+                    <GeometryDrawing Brush="#FFBB1D80" Geometry="F1 M32,32z M0,0z M16,25C18.2091,25,20,23.2091,20,21L12,21C12,23.2091,13.7909,25,16,25z" />
+                    <GeometryDrawing Brush="#FFFF8687" Geometry="F1 M32,32z M0,0z M13.6562,18C13.6562,17.4477,14.104,17,14.6562,17L17.2812,17C17.8335,17 18.2812,17.4477 18.2812,18 18.2812,18.5523 17.8335,19 17.2812,19L14.6562,19C14.104,19,13.6562,18.5523,13.6562,18z" />
+                    <GeometryDrawing Brush="#FF1C1C1C" Geometry="F1 M32,32z M0,0z M12,15C12,14.4477 12.4477,14 13,14 13.5523,14 14,14.4477 14,15L14,16C14,16.5523 13.5523,17 13,17 12.4477,17 12,16.5523 12,16L12,15z" />
+                    <GeometryDrawing Brush="#FF1C1C1C" Geometry="F1 M32,32z M0,0z M18,15C18,14.4477 18.4477,14 19,14 19.5523,14 20,14.4477 20,15L20,16C20,16.5523 19.5523,17 19,17 18.4477,17 18,16.5523 18,16L18,15z" />
+                    <GeometryDrawing Brush="#FF1C1C1C" Geometry="F1 M32,32z M0,0z M15.3984,18.3555C15.3984,18.6295 15.1763,18.8516 14.9023,18.8516 14.6284,18.8516 14.4062,18.6295 14.4062,18.3555 14.4062,18.0815 14.6284,17.8594 14.9023,17.8594 15.1763,17.8594 15.3984,18.0815 15.3984,18.3555z" />
+                    <GeometryDrawing Brush="#FF1C1C1C" Geometry="F1 M32,32z M0,0z M17.5742,18.3555C17.5742,18.6295 17.3521,18.8516 17.0781,18.8516 16.8041,18.8516 16.582,18.6295 16.582,18.3555 16.582,18.0815 16.8041,17.8594 17.0781,17.8594 17.3521,17.8594 17.5742,18.0815 17.5742,18.3555z" />
+                </DrawingGroup>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+        <Style x:Key="UserImage" TargetType="Image">
+            <Setter Property="Source" Value="{StaticResource ChatGPTDrawingImage}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Who}" Value="{x:Static models:EWho.User}">
+                    <Setter Property="Source" Value="{StaticResource User_FlatDrawingImage}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <DockPanel LastChildFill="True">
+        <Border
+            BorderBrush="#19000000"
+            BorderThickness="0,0,0,2"
+            DockPanel.Dock="Top">
+            <StackPanel
+                Margin="0,0,0,2"
+                DockPanel.Dock="Top"
+                Orientation="Horizontal">
+                <Button
+                    Name="cClearBtn"
+                    Width="28"
+                    Height="28"
+                    Command="{Binding ClearCommand}"
+                    Style="{StaticResource IconButton}"
+                    ToolTip="清空记录">
+                    <Image Source="{StaticResource CleanDataDrawingImage}" />
+                </Button>
+                <Button
+                    Width="28"
+                    Height="28"
+                    Margin="5,0"
+                    Command="{Binding OpenCodeGenWindowCommand}"
+                    Style="{StaticResource IconButton}"
+                    ToolTip="Open CodeGen Window">
+                    <Image Source="{StaticResource PencilLine_dDrawingImage}" />
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <Grid MinHeight="50" DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBox
                 x:Name="cSendText"
+                Margin="3,0,0,3"
                 AcceptsReturn="True"
                 AcceptsTab="True"
                 Background="{DynamicResource VsBrush.Window}"
@@ -271,5 +253,79 @@
             </StackPanel>
         </Grid>
 
-    </Grid>
+        <Grid>
+            <Button
+                Margin="0,5"
+                VerticalAlignment="Bottom"
+                Background="{DynamicResource VsBrush.Window}"
+                BorderBrush="#19000000"
+                Command="{Binding CancelCommand}"
+                Style="{StaticResource IconButton}"
+                Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Image Source="{StaticResource StopDrawingImage}" />
+            </Button>
+            <ProgressBar
+                Name="cProgressBar"
+                Height="4"
+                Margin="3"
+                VerticalAlignment="Bottom"
+                IsIndeterminate="{Binding IsLoading}"
+                Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}"
+                Value="100" />
+            <ItemsControl
+                Name="cChatList"
+                Grid.Row="1"
+                BorderThickness="0"
+                ItemsSource="{Binding ChatDatas}">
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <ScrollViewer
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalScrollBarVisibility="Disabled"
+                            VerticalScrollBarVisibility="Auto">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Padding="10,0"
+                            BorderBrush="#19000000"
+                            BorderThickness="0,0,0,2">
+                            <Grid Margin="0,5,0,5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="28" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image
+                                        Width="28"
+                                        Height="28"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource UserImage}" />
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="12"
+                                        FontWeight="Black"
+                                        Text="{Binding Who, Converter={StaticResource WhoToStringConverter}}" />
+                                </Grid>
+                                <markdown:MarkdownScrollViewer
+                                    Grid.Row="1"
+                                    Markdown="{Binding Content}"
+                                    VerticalScrollBarVisibility="Disabled" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </DockPanel>
 </UserControl>

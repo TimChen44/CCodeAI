@@ -61,6 +61,15 @@ namespace CCodeAI.Resources {
         }
         
         /// <summary>
+        ///   查找类似 CCodeAI 的本地化字符串。
+        /// </summary>
+        public static string Assistant {
+            get {
+                return ResourceManager.GetString("Assistant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Cancel(_C) 的本地化字符串。
         /// </summary>
         public static string CancleBtn {

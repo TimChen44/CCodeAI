@@ -1,10 +1,8 @@
-﻿namespace CCodeAI;
+﻿namespace CCodeAI.Models;
 
 public class ChatData
 {
     public EWho Who { get; set; }
-
-    public string WhoText => Who.ToString();
 
     public string Content { get; set; }
 
@@ -14,4 +12,6 @@ public class ChatData
     {
         return $"<|im_start|>{Who.ToString().ToLower()}{Content}<|im_end|>";
     }
+
+    public override string ToString() => $"{Who}:{Content}";
 }

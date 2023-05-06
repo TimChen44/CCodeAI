@@ -34,6 +34,7 @@ namespace CCodeAI
             if (framework == null) { return; }
             framework.BringIntoView();
         }
+
         public static void ScrollIntoView(this ItemsControl control)
         {
             int count = control.Items.Count;

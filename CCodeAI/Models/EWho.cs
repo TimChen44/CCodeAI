@@ -1,10 +1,9 @@
-﻿namespace CCodeAI
+﻿namespace CCodeAI.Models;
+
+public enum EWho
 {
-    public enum EWho
-    {
-        PlugIn,
-        User,
-        Assistant,
-        Welcome,
-    }
+    PlugIn,
+    User,
+    Assistant,
+    Welcome,
 }

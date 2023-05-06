@@ -1,4 +1,4 @@
-﻿namespace CCodeAI;
+﻿namespace CCodeAI.Models;
 
 public class WelcomeChatData:ChatData
 {
