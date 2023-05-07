@@ -3,10 +3,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:catalog="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.ImageCatalog"
+    xmlns:converters="clr-namespace:CCodeAI.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ex="clr-namespace:CCodeAI.Extensions"
     xmlns:imaging="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.Imaging"
     xmlns:local="clr-namespace:CCodeAI.ToolWindows"
+    xmlns:markdown="clr-namespace:MdXaml;assembly=MdXaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:platform="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
     xmlns:theming="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Imaging"
     xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
     xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities"
@@ -15,9 +19,11 @@
     d:DataContext="{d:DesignInstance Type=viewmodels:CCodeExplainWindowControlViewModel}"
     d:DesignHeight="500"
     d:DesignWidth="300"
+    toolkit:Themes.UseVsTheme="True"
     mc:Ignorable="d">
     <UserControl.Resources>
         <local:WhoToImageConverter x:Key="WhoToImageConverter" />
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         <Style x:Key="RoundTextBox" TargetType="TextBox">
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="BorderBrush" Value="#CCCCCC" />
@@ -35,6 +41,21 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+        <Style x:Key="IconButton" TargetType="Button">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Width" Value="28" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="Background" Value="Transparent" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#33000000" />
+                    <Setter Property="BorderThickness" Value="1" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#30000000" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <DrawingImage x:Key="CleanDataDrawingImage">
             <DrawingImage.Drawing>
@@ -75,63 +96,113 @@
                 </DrawingGroup>
             </DrawingImage.Drawing>
         </DrawingImage>
+        <DrawingImage x:Key="PencilLine_dDrawingImage">
+            <DrawingImage.Drawing>
+                <DrawingGroup ClipGeometry="M0,0 V48 H49 V0 H0 Z">
+                    <GeometryDrawing Geometry="F1 M49,48z M0,0z M36.5,22.5L26,12 30.9312,7.06879C31.0708,6.92706 31.2372,6.81445 31.4207,6.73773 31.6041,6.66083 31.8011,6.62128 32,6.62128 32.1989,6.62128 32.3959,6.66083 32.5793,6.73773 32.7628,6.81445 32.9292,6.92706 33.0688,7.06879L41.4312,15.4312C41.5729,15.5709 41.6855,15.7372 41.7624,15.9207 41.8392,16.1041 41.8787,16.3011 41.8787,16.5 41.8787,16.6989 41.8392,16.8959 41.7624,17.0793 41.6855,17.2628 41.5729,17.4293 41.4312,17.5688L36.5,22.5z">
+                        <GeometryDrawing.Brush>
+                            <SolidColorBrush Opacity="0.1" Color="#FF000000" />
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                    <GeometryDrawing Brush="{DynamicResource VsBrush.WindowText}" Geometry="F0 M49,48z M0,0z M42.4887,18.6326L19.5607,41.5607C19.2794,41.842,18.8978,42,18.5,42L9.5,42C9.5,42 8.25736,42 7.37868,41.1213 7.37868,41.1213 6.5,40.2427 6.5,39L6.5,30.6188C6.5,30.6188 6.49793,30.0302 6.72353,29.4809 6.72353,29.4809 6.94913,28.9317 7.36797,28.5107L29.8706,6.00811C29.8706,6.00811 30.2854,5.58683 30.8413,5.35405 30.8413,5.35405 31.3973,5.12128 32,5.12128 32,5.12128 32.6027,5.12128 33.1587,5.35406 33.1587,5.35406 33.7146,5.58683 34.1375,6.01626L42.4919,14.3706C42.4919,14.3706 42.9132,14.7854 43.146,15.3414 43.146,15.3414 43.3787,15.8973 43.3787,16.5 43.3787,16.5 43.3787,17.1027 43.146,17.6587 43.146,17.6587 42.9154,18.2093 42.4919,18.6294L42.4887,18.6326z M40.3787,16.5L40.3706,16.4919 32,8.12128 31.9919,8.12943 9.5,30.6213 9.5,39 17.8787,39 40.3706,16.5081 40.3787,16.5z" />
+                    <GeometryDrawing Brush="{DynamicResource VsBrush.WindowText}" Geometry="F1 M49,48z M0,0z M35.4386,23.5599L35.4393,23.5607C35.7206,23.842 36.1022,24 36.5,24 36.8978,24 37.2794,23.842 37.5607,23.5607 37.842,23.2794 38,22.8978 38,22.5 38,22.1022 37.842,21.7206 37.5607,21.4393L37.5599,21.4386 27.0608,10.9395C26.7794,10.658 26.3978,10.5 26,10.5 25.6022,10.5 25.2206,10.658 24.9393,10.9393 24.658,11.2206 24.5,11.6022 24.5,12 24.5,12.3978 24.658,12.7794 24.9393,13.0607L35.4386,23.5599z" />
+                    <GeometryDrawing Brush="{DynamicResource VsBrush.WindowText}" Geometry="F1 M49,48z M0,0z M9.15441,29.0331C8.87311,28.7518 8.49157,28.5938 8.09375,28.5938 7.69593,28.5938 7.31439,28.7518 7.03309,29.0331 6.75179,29.3144 6.59375,29.6959 6.59375,30.0938 6.59375,30.4916 6.75179,30.8731 7.03309,31.1544L17.4393,41.5607C17.7206,41.842,18.1022,42,18.5,42L41,42C41.8284,42 42.5,41.3284 42.5,40.5 42.5,39.6716 41.8284,39 41,39L19.1213,39 9.15441,29.0331z" />
+                    <GeometryDrawing Brush="{DynamicResource VsBrush.WindowText}" Geometry="F1 M49,48z M0,0z M32.3101,18.3112L32.3107,18.3107C32.592,18.0294 32.75,17.6478 32.75,17.25 32.75,16.8522 32.592,16.4706 32.3107,16.1893L32.3098,16.1885 32.2977,16.1765 32.2968,16.1757C32.0167,15.9028 31.6411,15.75 31.25,15.75 31.205,15.75 31.16,15.752 31.1152,15.7561 30.7654,15.7876 30.4377,15.941 30.1893,16.1893L30.1888,16.1899 12.1899,34.1888 12.1893,34.1893C11.908,34.4706 11.75,34.8522 11.75,35.25 11.75,35.274 11.7506,35.2981 11.7517,35.3221 11.7696,35.6945 11.9257,36.047 12.1893,36.3107 12.4706,36.592 12.8522,36.75 13.25,36.75 13.6478,36.75 14.0294,36.592 14.3107,36.3107L14.3112,36.3101 32.3101,18.3112z" />
+                </DrawingGroup>
+            </DrawingImage.Drawing>
+        </DrawingImage>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" MinHeight="100" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="200" MinHeight="50" />
+            <RowDefinition Height="100" MinHeight="50" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
+        <StackPanel
+            Grid.Row="0"
+            Margin="0,0,0,2"
+            Orientation="Horizontal">
             <Button
                 Name="cClearBtn"
                 Width="28"
                 Height="28"
-                Margin="5"
-                Background="Transparent"
-                BorderThickness="0"
                 Command="{Binding ClearCommand}"
+                Style="{StaticResource IconButton}"
                 ToolTip="清空记录">
                 <Image Source="{StaticResource CleanDataDrawingImage}" />
             </Button>
+            <Button
+                Width="28"
+                Height="28"
+                Margin="5,0"
+                Command="{Binding OpenCodeGenWindowCommand}"
+                Style="{StaticResource IconButton}"
+                ToolTip="Open CodeGen Window">
+                <Image Source="{StaticResource PencilLine_dDrawingImage}" />
+            </Button>
         </StackPanel>
-        <ListBox
-            Name="cChatList"
+        <ScrollViewer
+            Name="_scrollViewer"
             Grid.Row="1"
+            ex:ScrollViewerExtensions.AlwaysScrollToEnd="True"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <ItemsControl
+                Name="cChatList"
+                BorderThickness="0"
+                ItemsSource="{Binding ChatDatas}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,5,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image
+                                Margin="5,10,10,10"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Source="{Binding WhoText, Converter={StaticResource WhoToImageConverter}}" />
+                            <Border
+                                Grid.Column="1"
+                                Padding="5,2"
+                                BorderBrush="#19000000"
+                                BorderThickness="1"
+                                CornerRadius="5">
+                                <markdown:MarkdownScrollViewer Markdown="{Binding Content}" VerticalScrollBarVisibility="Disabled" />
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <Button
+            Grid.Row="1"
+            Margin="0,5"
+            VerticalAlignment="Bottom"
             Background="{DynamicResource VsBrush.Window}"
-            BorderThickness="0"
-            ItemsSource="{Binding ChatDatas}"
-            ScrollViewer.CanContentScroll="False"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,5,0,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Image
-                            Margin="5,10,10,10"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Source="{Binding WhoText, Converter={StaticResource WhoToImageConverter}}" />
-                        <TextBox
-                            Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Foreground="{DynamicResource VsBrush.WindowText}"
-                            IsReadOnly="True"
-                            Text="{Binding Content}"
-                            TextWrapping="Wrap" />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+            BorderBrush="#19000000"
+            Command="{Binding CancelCommand}"
+            Style="{StaticResource IconButton}"
+            Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Image>
+                <Image.Source>
+                    <DrawingImage>
+                        <DrawingImage.Drawing>
+                            <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                                <DrawingGroup Opacity="1">
+                                    <DrawingGroup Opacity="0.75">
+                                        <GeometryDrawing Brush="#FFC50B17" Geometry="F1 M16,16z M0,0z M12.5,3.5L12.5,12.5 3.5,12.5 3.5,3.5z" />
+                                    </DrawingGroup>
+                                    <GeometryDrawing Brush="#FFC50B17" Geometry="F1 M16,16z M0,0z M12.5,3L3.5,3 3,3.5 3,12.5 3.5,13 12.5,13 13,12.5 13,3.5z M12,12L4,12 4,4 12,4z" />
+                                </DrawingGroup>
+                            </DrawingGroup>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Image.Source>
+            </Image>
+        </Button>
         <GridSplitter
             Grid.Row="2"
             Height="3"
@@ -143,11 +214,11 @@
         <ProgressBar
             Name="cProgressBar"
             Grid.Row="3"
-            Height="2"
+            Height="4"
             VerticalAlignment="Top"
             IsIndeterminate="{Binding IsLoading}"
-            Value="100"
-            Visibility="Visible" />
+            Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}"
+            Value="100" />
         <Grid Grid.Row="3" Margin="0,4,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -156,26 +227,30 @@
             <TextBox
                 x:Name="cSendText"
                 AcceptsReturn="True"
+                AcceptsTab="True"
                 Background="{DynamicResource VsBrush.Window}"
                 BorderBrush="Gray"
                 Foreground="{DynamicResource VsBrush.WindowText}"
-                Text="{Binding Question}"
+                Text="{Binding Question, UpdateSourceTrigger=PropertyChanged}"
                 TextWrapping="Wrap"
-                VerticalScrollBarVisibility="Auto" />
-            <Button
-                x:Name="cAskBtn"
-                Grid.Column="1"
-                Width="30"
-                Height="25"
-                Margin="5,0"
-                VerticalAlignment="Top"
-                Background="Transparent"
-                BorderThickness="0"
-                Command="{Binding SendCommand}"
-                IsEnabled="{Binding !IsLoading}"
-                ToolTip="发送">
-                <Image Source="{StaticResource SendDrawingImage}" />
-            </Button>
+                VerticalScrollBarVisibility="Auto">
+                <TextBox.InputBindings>
+                    <KeyBinding
+                        Key="Enter"
+                        Command="{Binding SendCommand}"
+                        Modifiers="Ctrl" />
+                </TextBox.InputBindings>
+            </TextBox>
+            <StackPanel Grid.Column="1" Orientation="Vertical">
+                <Button
+                    Margin="5,0"
+                    Command="{Binding SendCommand}"
+                    IsEnabled="{Binding !IsLoading}"
+                    Style="{StaticResource IconButton}"
+                    ToolTip="Send(Ctrl+Enter)">
+                    <Image Source="{StaticResource SendDrawingImage}" />
+                </Button>
+            </StackPanel>
         </Grid>
 
     </Grid>

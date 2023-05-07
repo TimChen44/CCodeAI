@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFrameworks>net48</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+    <PackageId>MdXaml</PackageId>
+    <Version>1.18.1</Version>
+    <Authors>Bevan Arps(original); whistyun</Authors>
+    <Description>Markdown XAML processor</Description>
+    <Copyright>Copyright (c) 2010 Bevan Arps, 2020 whistyun</Copyright>
+    <PackageProjectUrl>https://github.com/whistyun/MdXaml</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>MdXaml.md</PackageReadmeFile>
+    <PackageTags>Markdown WPF Xaml FlowDocument</PackageTags>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="EmojiTable.txt" />
+    <EmbeddedResource Include="EmojiTable.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="MarkdownMigFree.Style.xaml" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.0.0" />
+    <PackageReference Include="Community.VisualStudio.Toolkit.17" Version="17.0.492" />
+    <PackageReference Include="MdXaml.Plugins" Version="1.18.1" />
+  </ItemGroup>
+</Project>

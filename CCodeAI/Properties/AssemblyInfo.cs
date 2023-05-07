@@ -1,5 +1,6 @@
 ﻿using CCodeAI;
 using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle(Vsix.Name)]
@@ -15,7 +16,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyVersion(Vsix.Version)]
 [assembly: AssemblyFileVersion(Vsix.Version)]
-
+[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.MainAssembly)]
 namespace System.Runtime.CompilerServices
 {
     public class IsExternalInit { }

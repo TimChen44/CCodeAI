@@ -1,0 +1,3 @@
+﻿Generate {{$language}} code based on the following information:
+
+{{$input}}
