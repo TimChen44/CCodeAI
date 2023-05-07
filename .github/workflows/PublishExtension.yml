@@ -16,6 +16,12 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     
+        # Generate Azure OpenAI key
+    - name: wirte keys
+      shell: pwsh
+    - run: |
+        "public static class AzureConfig{public const string Endpoint = `"${{ secrets.ENDPOINT }}`";public const string AppKey = `"${{ secrets.APP_KEY }}`";}" | Out-File -FilePath .\CCodeAI.QuickActions\CCodeAI.QuickActions.CodeFixes\AzureConfig.cs
+
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
       uses: microsoft/setup-msbuild@v1.0.2
