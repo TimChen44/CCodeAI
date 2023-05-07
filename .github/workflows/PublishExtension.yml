@@ -19,8 +19,7 @@ jobs:
         # Generate Azure OpenAI key
     - name: wirte keys
       shell: pwsh
-    - run: |
-        "public static class AzureConfig{public const string Endpoint = `"${{ secrets.ENDPOINT }}`";public const string AppKey = `"${{ secrets.APP_KEY }}`";}" | Out-File -FilePath .\CCodeAI.QuickActions\CCodeAI.QuickActions.CodeFixes\AzureConfig.cs
+    - run: "public static class AzureConfig{public const string Endpoint = `"${{ secrets.ENDPOINT }}`";public const string AppKey = `"${{ secrets.APP_KEY }}`";}" | Out-File -FilePath .\CCodeAI.QuickActions\CCodeAI.QuickActions.CodeFixes\AzureConfig.cs
 
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
