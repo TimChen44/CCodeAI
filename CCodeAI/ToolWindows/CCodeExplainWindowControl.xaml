@@ -405,24 +405,6 @@
         </Grid>
 
         <Grid>
-            <Button
-                Margin="0,5"
-                VerticalAlignment="Bottom"
-                Background="{DynamicResource VsBrush.Window}"
-                BorderBrush="#19000000"
-                Command="{Binding CancelCommand}"
-                Style="{StaticResource IconButton}"
-                Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <Image Source="{StaticResource StopDrawingImage}" />
-            </Button>
-            <ProgressBar
-                Name="cProgressBar"
-                Height="4"
-                Margin="3"
-                VerticalAlignment="Bottom"
-                IsIndeterminate="{Binding IsLoading}"
-                Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
-                Value="100" />
             <ItemsControl
                 Name="cChatList"
                 Grid.Row="1"
@@ -440,6 +422,24 @@
                     </ControlTemplate>
                 </ItemsControl.Template>
             </ItemsControl>
+            <Button
+                Margin="0,10"
+                VerticalAlignment="Bottom"
+                Background="{DynamicResource VsBrush.Window}"
+                BorderBrush="#19000000"
+                Command="{Binding CancelCommand}"
+                Style="{StaticResource IconButton}"
+                Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Image Source="{StaticResource StopDrawingImage}" />
+            </Button>
+            <ProgressBar
+                Name="cProgressBar"
+                Height="4"
+                Margin="3"
+                VerticalAlignment="Bottom"
+                IsIndeterminate="{Binding IsLoading}"
+                Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Value="100" />
         </Grid>
     </DockPanel>
 </UserControl>
