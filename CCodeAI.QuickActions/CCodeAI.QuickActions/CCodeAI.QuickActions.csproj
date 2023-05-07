@@ -11,10 +11,30 @@
 
   <ItemGroup>
     <None Remove="CCodeAISkills\ChatSkill\Chat\skprompt.txt" />
+    <None Remove="CCodeAISkills\CoreSkill\Comment\skprompt.txt" />
+    <None Remove="CCodeAISkills\CoreSkill\Explain\skprompt.txt" />
+    <None Remove="CCodeAISkills\CoreSkill\Optimize\skprompt.txt" />
+    <None Remove="CCodeAISkills\CoreSkill\UnitTest\skprompt.txt" />
+    <None Remove="CCodeAISkills\CoreSkill\WirteCode\skprompt.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="CCodeAISkills\ChatSkill\Chat\skprompt.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CCodeAISkills\CoreSkill\Comment\skprompt.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CCodeAISkills\CoreSkill\Explain\skprompt.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CCodeAISkills\CoreSkill\Optimize\skprompt.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CCodeAISkills\CoreSkill\UnitTest\skprompt.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CCodeAISkills\CoreSkill\WirteCode\skprompt.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -31,6 +51,21 @@
 
   <ItemGroup>
     <None Update="CCodeAISkills\ChatSkill\Chat\config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="CCodeAISkills\CoreSkill\Comment\config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="CCodeAISkills\CoreSkill\Explain\config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="CCodeAISkills\CoreSkill\Optimize\config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="CCodeAISkills\CoreSkill\UnitTest\config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="CCodeAISkills\CoreSkill\WirteCode\config.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Skills\ClassSkill\GenerateClass\config.json">

@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.KernelExtensions;
 using Microsoft.SemanticKernel.Orchestration;
+using Microsoft.VisualStudio.Text.Editor;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -25,13 +26,12 @@ namespace CCodeAI.ViewModels
 
         public CCodeExplainWindowControlViewModel()
         {
-            ChatDatas.Add(new WelcomeChatData());
-
             var dir = Path.Combine(
                 Path.GetDirectoryName(typeof(CCodeExplainWindowControlViewModel).Assembly.Location),
                 "CCodeAISkills");
 
             SkillsProvider = new SkillsProvider(dir);
+            ChatDatas.Add(new WelcomeChatData(this));
 
             KernelFactory.Init();
         }
@@ -118,12 +118,6 @@ namespace CCodeAI.ViewModels
 
             try
             {
-                ChatDatas.Add(new ChatData()
-                {
-                    Content = Resources.Resources.InquiryAI,
-                    Who = EWho.PlugIn
-                });
-
                 var explainFunc = SKernel.CreateSemanticFunction(semanticFuncation);
 
                 var context = SKernel.CreateNewContext();
@@ -156,6 +150,50 @@ namespace CCodeAI.ViewModels
             finally
             {
                 AiLoaded();                
+                _coreSkillcancellationTokenSource?.Dispose();
+                _coreSkillcancellationTokenSource = null;
+            }
+        }
+
+        public async Task<string> CodeSkillAsync(
+            string code,
+            string extension,
+            ISKFunction semanticFuncation)
+        {
+            AiLoading();
+
+            try
+            {
+                var context = SKernel.CreateNewContext();
+                context.Variables["extension"] = extension;
+                context.Variables["culture"] = System.Globalization.CultureInfo.CurrentCulture.EnglishName;
+
+                _coreSkillcancellationTokenSource = new CancellationTokenSource();
+                var result = await semanticFuncation.InvokeAsync(code, context, cancel: _coreSkillcancellationTokenSource.Token);
+
+                if (result.ErrorOccurred)
+                {
+                    await VS.MessageBox.ShowErrorAsync(result.LastErrorDescription);
+                    return null;
+                }
+
+                var content = result.ToString().Trim();
+
+                ChatDatas.Add(new ChatData()
+                {
+                    Content = content,
+                    Who = EWho.Assistant
+                });
+
+                return content;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                AiLoaded();
                 _coreSkillcancellationTokenSource?.Dispose();
                 _coreSkillcancellationTokenSource = null;
             }
@@ -208,6 +246,15 @@ namespace CCodeAI.ViewModels
             finally
             {
                 AiLoaded();
+            }
+        }
+
+        [RelayCommand]
+        private void RemoveChatData(ChatData chatData)
+        {
+            if (chatData != null)
+            {
+                ChatDatas.Remove(chatData);
             }
         }
     }

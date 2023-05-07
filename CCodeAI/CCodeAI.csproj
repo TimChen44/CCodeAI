@@ -83,6 +83,7 @@
     <Compile Include="ViewModels\CCodeExplainWindowControlViewModel.cs" />
     <Compile Include="ViewModels\CodeExplainExtension.cs" />
     <Compile Include="ViewModels\CodeGenWindowViewModel.cs" />
+    <Compile Include="Views\ChatDataTemplateSelection.cs" />
     <Compile Include="Views\CodeGenWindow.xaml.cs">
       <DependentUpon>CodeGenWindow.xaml</DependentUpon>
     </Compile>
@@ -99,7 +100,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Resources.zh.resx" />
+    <EmbeddedResource Include="Resources\Resources.zh.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
       <Generator>VsixManifestGenerator</Generator>

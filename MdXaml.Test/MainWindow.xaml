@@ -10,5 +10,6 @@
     Width="800"
     Height="450"
     mc:Ignorable="d">
-    <md:MarkdownScrollViewer Margin="5,0" Markdown="{Binding Markdown}" />
+    <md:MarkdownScrollViewer Margin="5,0" Markdown="{Binding Markdown}" >
+    </md:MarkdownScrollViewer>
 </Window>

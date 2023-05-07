@@ -1,6 +1,9 @@
-﻿namespace CCodeAI.Models;
+﻿using CommunityToolkit.Mvvm.Input;
+using System.Windows;
 
-public class ChatData
+namespace CCodeAI.Models;
+
+public partial class ChatData
 {
     public EWho Who { get; set; }
 
@@ -23,5 +26,18 @@ public class ChatData
                 _ => $"AI: {Content}"
             };
         } 
+    }
+
+    [RelayCommand]
+    private void Copy()
+    {
+        try
+        {
+            Clipboard.SetDataObject(Content);
+        }
+        catch (Exception ex)
+        {
+            VS.MessageBox.ShowError(ex.Message);
+        }
     }
 }

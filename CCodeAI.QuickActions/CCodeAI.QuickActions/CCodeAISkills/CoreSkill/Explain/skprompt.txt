@@ -1,0 +1,7 @@
+I would like you to serve as a code interpreter with Chinese, and elucidate the syntax and the semantics of the code step-by-step.
+
+{Respond in {{$culture}} and markdown format.}
+
+```{{$extension}}
+{{$input}}
+```

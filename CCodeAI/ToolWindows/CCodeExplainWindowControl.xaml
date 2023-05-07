@@ -16,15 +16,17 @@
     xmlns:toolkit="clr-namespace:Community.VisualStudio.Toolkit;assembly=Community.VisualStudio.Toolkit"
     xmlns:util="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Utilities"
     xmlns:viewmodels="clr-namespace:CCodeAI.ViewModels"
+    xmlns:views="clr-namespace:CCodeAI.Views"
     Name="MyToolWindow"
     d:DataContext="{d:DesignInstance Type=viewmodels:CCodeExplainWindowControlViewModel}"
     d:DesignHeight="500"
     d:DesignWidth="300"
     toolkit:Themes.UseVsTheme="True"
+    Background="{DynamicResource VsBrush.Window}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <local:WhoToStringConverter x:Key="WhoToStringConverter" />
-        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <Style x:Key="RoundTextBox" TargetType="TextBox">
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="BorderBrush" Value="#CCCCCC" />
@@ -179,6 +181,43 @@
                 </DrawingGroup>
             </DrawingImage.Drawing>
         </DrawingImage>
+        <DrawingImage x:Key="DeleteListItemDrawingImage">
+            <DrawingImage.Drawing>
+                <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                    <DrawingGroup Opacity="1">
+                        <GeometryDrawing Geometry="F1 M16,16z M0,0z M14.5,5.5L14.5,13.5 1.5,13.5 1.5,6.621 2.621,5.5 3.379,5.5 5.146,7.268 6.914,5.5z">
+                            <GeometryDrawing.Brush>
+                                <SolidColorBrush Opacity="0.1" Color="#FF212121" />
+                            </GeometryDrawing.Brush>
+                        </GeometryDrawing>
+                        <GeometryDrawing Brush="#FFC50B17" Geometry="F1 M16,16z M0,0z M3.707,3L5.854,5.146 5.146,5.854 3,3.707 0.854,5.854 0.146,5.146 2.293,3 0.146,0.854 0.854,0.146 3,2.293 5.146,0.146 5.854,0.854z" />
+                        <GeometryDrawing Brush="#FF212121" Geometry="F1 M16,16z M0,0z M12,9L4,9 4,10 12,10z M14.5,5L7.414,5 6.414,6 14,6 14,13 2,13 2,6.121 1,7.121 1,13.5 1.5,14 14.5,14 15,13.5 15,5.5z" />
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+        <DrawingImage x:Key="CopyDrawingImage">
+            <DrawingImage.Drawing>
+                <DrawingGroup ClipGeometry="M0,0 V16 H16 V0 H0 Z">
+                    <DrawingGroup Opacity="1">
+                        <DrawingGroup Opacity="0.75">
+                            <GeometryDrawing Geometry="F1 M16,16z M0,0z M14.5,1.5L14.5,11.5 10,11.5 10,4.5 9.5,4 6.5,4 6.5,1.5z">
+                                <GeometryDrawing.Brush>
+                                    <SolidColorBrush Opacity="0.1" Color="#FF212121" />
+                                </GeometryDrawing.Brush>
+                            </GeometryDrawing>
+                            <GeometryDrawing Brush="#FF212121" Geometry="F1 M16,16z M0,0z M6.5,1L14.5,1 15,1.5 15,11.5 14.5,12 10,12 10,11 14,11 14,2 7,2 7,4 6,4 6,1.5z" />
+                        </DrawingGroup>
+                        <GeometryDrawing Geometry="F1 M16,16z M0,0z M9.5,4.5L9.5,14.5 1.5,14.5 1.5,4.5z">
+                            <GeometryDrawing.Brush>
+                                <SolidColorBrush Opacity="0.1" Color="#FF212121" />
+                            </GeometryDrawing.Brush>
+                        </GeometryDrawing>
+                        <GeometryDrawing Brush="#FF212121" Geometry="F1 M16,16z M0,0z M1,4.5L1,14.5 1.5,15 9.5,15 10,14.5 10,4.5 9.5,4 1.5,4z M2,5L9,5 9,14 2,14z" />
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingImage.Drawing>
+        </DrawingImage>
         <Style x:Key="UserImage" TargetType="Image">
             <Setter Property="Source" Value="{StaticResource ChatGPTDrawingImage}" />
             <Style.Triggers>
@@ -187,6 +226,118 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <views:ChatDataTemplateSelector x:Key="ChatDataTemplateSelector">
+            <views:ChatDataTemplateSelector.WelcomeChatDataTemplate>
+                <DataTemplate DataType="models:WelcomeChatData">
+                    <Border
+                        Padding="10,0"
+                        BorderBrush="#19000000"
+                        BorderThickness="0,0,0,2">
+                        <Grid Margin="0,5,0,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="28" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Width="28"
+                                    Height="28"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource UserImage}" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    FontWeight="Black"
+                                    Text="{Binding Who, Converter={StaticResource WhoToStringConverter}}" />
+                            </Grid>
+                            <markdown:MarkdownScrollViewer
+                                Grid.Row="1"
+                                Markdown="{Binding Content}"
+                                VerticalScrollBarVisibility="Disabled" />
+                            <ItemsControl
+                                Grid.Row="2"
+                                Margin="5"
+                                ItemsSource="{Binding SemanticFunctions}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Padding="0,5,0,0">
+                                            <Hyperlink Command="{Binding DataContext.ExecuteCoreSkillCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Border}}}" CommandParameter="{Binding}">
+                                                <TextBlock Text="{Binding Name}" />
+                                            </Hyperlink>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </views:ChatDataTemplateSelector.WelcomeChatDataTemplate>
+            <views:ChatDataTemplateSelector.ChatDataTemplate>
+                <DataTemplate>
+                    <Border
+                        Name="_chatBorder"
+                        Padding="10,0"
+                        BorderBrush="#19000000"
+                        BorderThickness="0,0,0,2">
+                        <Grid Margin="0,5,0,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid x:Name="_chatHeader" Background="{DynamicResource VsBrush.Window}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="28" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="40" />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Width="28"
+                                    Height="28"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource UserImage}" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="10,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="12"
+                                    FontWeight="Black"
+                                    Text="{Binding Who, Converter={StaticResource WhoToStringConverter}}" />
+                                <TextBlock
+                                    Grid.Column="2"
+                                    VerticalAlignment="Top"
+                                    Visibility="{Binding ElementName=_chatHeader, Path=IsMouseOver, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <Hyperlink Command="{Binding CopyCommand}">
+                                        <TextBlock Text="Copy" />
+                                    </Hyperlink>
+                                </TextBlock>
+                                <TextBlock
+                                    Grid.Column="3"
+                                    VerticalAlignment="Top"
+                                    Visibility="{Binding ElementName=_chatHeader, Path=IsMouseOver, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <Hyperlink Command="{Binding DataContext.RemoveChatDataCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}" CommandParameter="{Binding}">
+                                        <TextBlock Text="Delete" />
+                                    </Hyperlink>
+                                </TextBlock>
+                            </Grid>
+                            <markdown:MarkdownScrollViewer
+                                Grid.Row="1"
+                                Markdown="{Binding Content}"
+                                VerticalScrollBarVisibility="Disabled" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </views:ChatDataTemplateSelector.ChatDataTemplate>
+        </views:ChatDataTemplateSelector>
     </UserControl.Resources>
     <DockPanel LastChildFill="True">
         <Border
@@ -261,7 +412,7 @@
                 BorderBrush="#19000000"
                 Command="{Binding CancelCommand}"
                 Style="{StaticResource IconButton}"
-                Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}">
+                Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Image Source="{StaticResource StopDrawingImage}" />
             </Button>
             <ProgressBar
@@ -270,12 +421,13 @@
                 Margin="3"
                 VerticalAlignment="Bottom"
                 IsIndeterminate="{Binding IsLoading}"
-                Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}}"
+                Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
                 Value="100" />
             <ItemsControl
                 Name="cChatList"
                 Grid.Row="1"
                 BorderThickness="0"
+                ItemTemplateSelector="{StaticResource ChatDataTemplateSelector}"
                 ItemsSource="{Binding ChatDatas}">
                 <ItemsControl.Template>
                     <ControlTemplate>
@@ -287,44 +439,6 @@
                         </ScrollViewer>
                     </ControlTemplate>
                 </ItemsControl.Template>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border
-                            Padding="10,0"
-                            BorderBrush="#19000000"
-                            BorderThickness="0,0,0,2">
-                            <Grid Margin="0,5,0,5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="50" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="28" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image
-                                        Width="28"
-                                        Height="28"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Style="{StaticResource UserImage}" />
-                                    <TextBlock
-                                        Grid.Column="1"
-                                        Margin="10,0,0,0"
-                                        VerticalAlignment="Center"
-                                        FontSize="12"
-                                        FontWeight="Black"
-                                        Text="{Binding Who, Converter={StaticResource WhoToStringConverter}}" />
-                                </Grid>
-                                <markdown:MarkdownScrollViewer
-                                    Grid.Row="1"
-                                    Markdown="{Binding Content}"
-                                    VerticalScrollBarVisibility="Disabled" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Grid>
     </DockPanel>
