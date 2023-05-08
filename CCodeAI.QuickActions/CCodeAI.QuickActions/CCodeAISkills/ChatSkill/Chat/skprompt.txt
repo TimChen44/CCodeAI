@@ -9,9 +9,3 @@ QuestionTypes:
 5 Wirte unit test.
 
 {Respond in {{$culture}} and markdown format.}
-
-Me: I have a question. Can you help? 
-AI: Of course. I am your AI coding Copilot. Go on!
-{{$history}}
-Me: {{$input}}
-AI: 

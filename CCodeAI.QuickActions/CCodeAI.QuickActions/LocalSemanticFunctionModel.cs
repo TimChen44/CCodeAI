@@ -42,6 +42,11 @@ public class LocalSemanticFunctionModel
     public string SkillDir { get; }
 
     public string RootDir => Directory.GetParent(SkillDir).FullName;
+
+    /// <summary>
+    /// Semantic function Content
+    /// </summary>
+    public string SemanticString => File.ReadAllText(PathName);
     #endregion
 
     public override string ToString() => Name;

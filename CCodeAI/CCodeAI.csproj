@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Converters\StringIsNullOrEmptyToVisibilityConveter.cs" />
     <Compile Include="Converters\WhoToStringConverter.cs" />
+    <Compile Include="Extensions\LocalSemanticFunctionModelExtension.cs" />
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Models\ChatData.cs" />
     <Compile Include="Models\ChatListExtension.cs" />

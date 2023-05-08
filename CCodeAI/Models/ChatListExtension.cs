@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.OLE.Interop;
+﻿using Microsoft.SemanticKernel.AI.ChatCompletion;
+using Microsoft.VisualStudio.OLE.Interop;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,19 +7,30 @@ namespace CCodeAI.Models;
 
 public static class ChatListExtension
 {
-    public static string GetChatContext(this IEnumerable<ChatData> chatList)
+    public static ChatHistory GetChatHistory(
+        this IEnumerable<ChatData> chatList,
+        string prompt)
     {
-        var strBuilder = new StringBuilder();
+        var chatHistory = new ChatHistory();
+        chatHistory.AddMessage(ChatHistory.AuthorRoles.System, prompt);
 
         foreach (ChatData chat in chatList) 
         {
             if (chat.Who == EWho.Welcome)
+            {
                 continue;
+            }
 
-            strBuilder.Append(chat);
-            strBuilder.Append('\n');
+            if (chat.Who == EWho.User)
+            {
+                chatHistory.AddMessage(ChatHistory.AuthorRoles.User, chat.Content);
+            }
+            else if(chat.Who == EWho.Assistant)
+            {
+                chatHistory.AddMessage(ChatHistory.AuthorRoles.Assistant, chat.Content);
+            }
         }
 
-        return strBuilder.ToString();
+        return chatHistory;
     }
 }

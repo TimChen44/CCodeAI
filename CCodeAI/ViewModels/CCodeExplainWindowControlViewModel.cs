@@ -1,11 +1,15 @@
-﻿using CCodeAI.Models;
+﻿using CCodeAI.Extensions;
+using CCodeAI.Models;
 using CCodeAI.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.AI.ChatCompletion;
 using Microsoft.SemanticKernel.KernelExtensions;
 using Microsoft.SemanticKernel.Orchestration;
+using Microsoft.SemanticKernel.SemanticFunctions;
 using Microsoft.VisualStudio.Text.Editor;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -32,6 +36,8 @@ namespace CCodeAI.ViewModels
 
             SkillsProvider = new SkillsProvider(dir);
             ChatDatas.Add(new WelcomeChatData(this));
+            ChatSkill = SkillsProvider.GetSkills().First(p => p.Name == "ChatSkill");
+            SelectedChatSkill = ChatSkill.SemanticFunctions.First();
 
             KernelFactory.Init();
         }
@@ -49,6 +55,10 @@ namespace CCodeAI.ViewModels
         public SkillsProvider SkillsProvider { get; }
 
         public bool AddHistory { get; set; } = true;
+
+        public SkillModel ChatSkill { get; }
+
+        public LocalSemanticFunctionModel SelectedChatSkill;
 
         public void AiLoading()
         {
@@ -73,29 +83,33 @@ namespace CCodeAI.ViewModels
                 var input = Question;
                 Question = "";
 
-                var chatSkill = SKernel.ImportSemanticSkillFromDirectory(SkillsProvider.SkillsLocation, "ChatSkill");
-
-                var contextVariables = new ContextVariables();
-                contextVariables["culture"] = System.Globalization.CultureInfo.CurrentCulture.EnglishName;
-                contextVariables["input"] = input;
-                contextVariables["history"] = AddHistory ? ChatDatas.GetChatContext() : "";
-
                 ChatDatas.Add(new ChatData()
                 {
                     Who = EWho.User,
                     Content = input,
                 });
 
-                var result = await SKernel.RunAsync(contextVariables,cancellationToken:cancellationToken, chatSkill["Chat"]);
+                var culture = System.Globalization.CultureInfo.CurrentCulture.EnglishName;
+                var chatCompletion = SKernel.GetService<IChatCompletion>();
 
-                if (result.ErrorOccurred)
-                {
-                    await VS.MessageBox.ShowErrorAsync(result.LastErrorDescription);
-                    return;
-                }
+                var config = SelectedChatSkill.GetCompletionConfig();
+
+                var result = await chatCompletion.GenerateMessageAsync(
+                    ChatDatas.GetChatHistory(SelectedChatSkill.SemanticString.Replace("{{$culture}}",culture)),
+                    new ChatRequestSettings()
+                    {
+                        Temperature = config.Temperature,
+                        TopP = config.TopP,
+                        PresencePenalty = config.PresencePenalty,
+                        FrequencyPenalty = config.FrequencyPenalty,
+                        StopSequences = config.StopSequences,
+                        MaxTokens = config.MaxTokens,
+                    },
+                    cancellationToken);
+
                 ChatDatas.Add(new ChatData()
                 {
-                    Content = result.ToString().Trim(),
+                    Content = result,
                     Who = EWho.Assistant
                 });
             }
