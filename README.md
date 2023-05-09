@@ -1,6 +1,7 @@
 # CCodeAI
 
-![CCodeAI](../CCodeAI/Resources/Icon.png)
+![Icon](https://user-images.githubusercontent.com/7581981/236966660-3589cd14-2b41-427d-baad-0c182d156584.png)
+
 
 ## Use the ability of ChatGPT to assist in coding
 
