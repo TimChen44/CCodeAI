@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="CCode.ee1b2319-5a85-4ecc-bc6e-4264f753f94e" Version="2023.0507.1" Language="en-US" Publisher="TimChen" />
+        <Identity Id="CCode.ee1b2319-5a85-4ecc-bc6e-4264f753f94e" Version="2023.0509.5" Language="en-US" Publisher="TimChen" />
         <DisplayName>CCodeAI</DisplayName>
         <Description xml:space="preserve">Help you understand and optimize the code</Description>
         <MoreInfo>https://github.com/TimChen44/CCodeAI</MoreInfo>
@@ -44,5 +44,8 @@
         <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="CCodeAI.QuickActions" Path="|CCodeAI.QuickActions|"/>
         <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="CCodeAI.QuickActions.CodeFixes" Path="|CCodeAI.QuickActions.CodeFixes|"/>
         <Asset Type="Microsoft.VisualStudio.Analyzer" d:Source="Project" d:ProjectName="CCodeAI.QuickActions.CodeFixes" Path="|CCodeAI.QuickActions.CodeFixes|"/>
+        <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="MdXaml.dll" AssemblyName="MdXaml, Version=1.18.1.0, Culture=neutral, PublicKeyToken=null" />
+        <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="MdXaml.Plugins.dll" AssemblyName="MdXaml.Plugins, Version=1.18.1.0, Culture=neutral, PublicKeyToken=9f8c7afb435b7edc" />
+        <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="ICSharpCode.AvalonEdit.dll" AssemblyName="ICSharpCode.AvalonEdit, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9cc39be672370310" />
     </Assets>
 </PackageManifest>
