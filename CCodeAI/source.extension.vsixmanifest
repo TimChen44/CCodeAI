@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="CCode.ee1b2319-5a85-4ecc-bc6e-4264f753f94e" Version="2023.0509.5" Language="en-US" Publisher="TimChen" />
+        <Identity Id="CCode.ee1b2319-5a85-4ecc-bc6e-4264f753f94e" Version="2023.0510.1" Language="en-US" Publisher="TimChen" />
         <DisplayName>CCodeAI</DisplayName>
         <Description xml:space="preserve">Help you understand and optimize the code</Description>
         <MoreInfo>https://github.com/TimChen44/CCodeAI</MoreInfo>
