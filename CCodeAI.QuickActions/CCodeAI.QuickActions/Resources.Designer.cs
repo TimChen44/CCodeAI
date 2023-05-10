@@ -70,7 +70,7 @@ namespace CCodeAI.QuickActions {
         }
         
         /// <summary>
-        ///   查找类似 Optimize &apos;{0}&apos;  的本地化字符串。
+        ///   查找类似 Optimize &apos;{0}&apos; 的本地化字符串。
         /// </summary>
         internal static string CodeOptimizationAnalyzerMessageFormat {
             get {
@@ -88,7 +88,7 @@ namespace CCodeAI.QuickActions {
         }
         
         /// <summary>
-        ///   查找类似 Optimize this method 的本地化字符串。
+        ///   查找类似 Optimize this method. 的本地化字符串。
         /// </summary>
         internal static string CodeOptimizationMethodDescription {
             get {

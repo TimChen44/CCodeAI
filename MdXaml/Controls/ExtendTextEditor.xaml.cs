@@ -16,8 +16,8 @@ namespace MdXaml.Controls;
 /// </summary>
 public partial class ExtendTextEditor : UserControl
 {
-    private DelegateCommand _copyCommand;
-    private DelegateCommand _insertCommand;
+    private DelegateCommand? _copyCommand;
+    private DelegateCommand? _insertCommand;
 
     public ExtendTextEditor()
     {

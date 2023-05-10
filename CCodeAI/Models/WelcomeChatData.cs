@@ -35,9 +35,9 @@ public class WelcomeChatData:ChatData
 
     public SkillModel CoreSkill { get; }
 
-    public AsyncRelayCommand<LocalSemanticFunctionModel> ExecuteCoreSkillCommand => _executeCoreSkillCommand ??= new AsyncRelayCommand<LocalSemanticFunctionModel>(ExcuteCodeSkillSKFunction);
+    public AsyncRelayCommand<LocalSemanticFunctionModel> ExecuteCoreSkillCommand => _executeCoreSkillCommand ??= new AsyncRelayCommand<LocalSemanticFunctionModel>(ExcuteCodeSkillSKFunctionAsync);
 
-    private async Task ExcuteCodeSkillSKFunction(
+    private async Task ExcuteCodeSkillSKFunctionAsync(
         LocalSemanticFunctionModel localSemanticFunctionModel)
     {
         if (localSemanticFunctionModel == null || CoreSkill == null)
