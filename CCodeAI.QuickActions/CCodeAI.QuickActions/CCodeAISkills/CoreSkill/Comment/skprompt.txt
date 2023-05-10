@@ -1,0 +1,6 @@
+```{{$extension}}
+{{$input}}
+```
+Add comments to each line of code:
+
+{Respond in {{$culture}} and markdown format.}

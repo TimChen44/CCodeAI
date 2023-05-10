@@ -46,11 +46,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AzureConfig.cs" />
     <Compile Include="Converters\StringIsNullOrEmptyToVisibilityConveter.cs" />
+    <Compile Include="Converters\WhoToStringConverter.cs" />
+    <Compile Include="Extensions\LocalSemanticFunctionModelExtension.cs" />
     <Compile Include="Extensions\ScrollViewerExtensions.cs" />
     <Compile Include="Models\ChatData.cs" />
+    <Compile Include="Models\ChatListExtension.cs" />
     <Compile Include="Models\WelcomeChatData.cs" />
+    <Compile Include="Models\EWho.cs" />
     <Compile Include="Views\AvalonEditBehaviour.cs" />
     <Compile Include="Commands\CCodeAICommandId.cs" />
     <Compile Include="Commands\CCodeAddAskCommandId.cs" />
@@ -78,10 +81,10 @@
       <DependentUpon>CCodeExplainWindowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ToolWindows\CodeRichTextBox.cs" />
-    <Compile Include="Converters\WhoToImageConverter.cs" />
     <Compile Include="ViewModels\CCodeExplainWindowControlViewModel.cs" />
     <Compile Include="ViewModels\CodeExplainExtension.cs" />
     <Compile Include="ViewModels\CodeGenWindowViewModel.cs" />
+    <Compile Include="Views\ChatDataTemplateSelection.cs" />
     <Compile Include="Views\CodeGenWindow.xaml.cs">
       <DependentUpon>CodeGenWindow.xaml</DependentUpon>
     </Compile>
@@ -110,9 +113,12 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Resources.zh.resx" />
-    <EmbeddedResource Include="ToolWindows\bot.png" />
-    <EmbeddedResource Include="ToolWindows\user.png" />
+    <EmbeddedResource Include="Resources\Resources.zh.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
       <Generator>VsixManifestGenerator</Generator>

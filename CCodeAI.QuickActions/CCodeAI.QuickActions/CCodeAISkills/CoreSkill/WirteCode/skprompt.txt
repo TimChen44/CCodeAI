@@ -1,0 +1,4 @@
+```{{$extension}}
+{{$input}}
+```
+Complete the code based on the comments, and only return the added code, excluding any other content:

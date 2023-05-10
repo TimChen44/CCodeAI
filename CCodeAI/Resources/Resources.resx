@@ -164,4 +164,7 @@ Complete the code based on the comments, and only return the added code, excludi
   <data name="Copy" xml:space="preserve">
     <value>Copy(_C)</value>
   </data>
+  <data name="Assistant" xml:space="preserve">
+    <value>CCodeAI</value>
+  </data>
 </root>

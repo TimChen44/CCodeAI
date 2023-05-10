@@ -1,0 +1,6 @@
+```{{$extension}}
+{{$input}}
+```
+Optimize the code:
+
+{Respond in {{$culture}} and markdown format.}

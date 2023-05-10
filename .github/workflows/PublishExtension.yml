@@ -1,0 +1,43 @@
+name: PublishExtension
+
+on:
+  push:
+    branches: [ master ]
+    tags:
+    - '*'
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    
+   # Generate Azure OpenAI key
+    - name: wirte keys
+      shell: pwsh
+      run: | 
+          "public static class AzureConfig{public const string Endpoint = `"${{ secrets.ENDPOINT }}`";public const string AppKey = `"${{ secrets.APP_KEY }}`";}" | Out-File -FilePath .\CCodeAI.QuickActions\CCodeAI.QuickActions.CodeFixes\AzureConfig.cs
+
+    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    # Restore the application to populate the obj folder with RuntimeIdentifiers
+    - name: Restore the application
+      run: msbuild CCodeAI.sln /t:Restore /p:Configuration=Release
+
+    # build release
+    - name: Build Relase
+      run: msbuild CCodeAI.sln /p:Configuration=Release    
+
+    # Publish
+    - name: Publish extension to Marketplace
+      uses: cezarypiatek/VsixPublisherAction@0.1
+      with:
+        extension-file: CCodeAI\bin\Release\CCodeAI.vsix
+        publish-manifest-file: publishManifest.json
+        personal-access-code: ${{ secrets.VS_PUBLISHER_ACCESS_TOKEN }}      

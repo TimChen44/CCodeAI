@@ -19,7 +19,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MdXaml", "MdXaml\MdXaml.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{776091DA-451C-414E-AFCC-D026D9D39AC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MdXaml.Test", "MdXaml.Test\MdXaml.Test.csproj", "{745DDED8-A1DA-46A2-AD28-5223A1265F5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MdXaml.Test", "MdXaml.Test\MdXaml.Test.csproj", "{745DDED8-A1DA-46A2-AD28-5223A1265F5E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1C31CC80-F972-434B-A6BB-8C885BE24EA8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

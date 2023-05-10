@@ -122,7 +122,7 @@
     <comment>An optional longer localizable description of the diagnostic.</comment>
   </data>
   <data name="CodeOptimizationAnalyzerMessageFormat" xml:space="preserve">
-    <value>Optimize '{0}' </value>
+    <value>Optimize '{0}'</value>
     <comment>The format-able message the diagnostic displays.</comment>
   </data>
   <data name="CodeOptimizationAnalyzerTitle" xml:space="preserve">
@@ -130,7 +130,7 @@
     <comment>The title of the diagnostic.</comment>
   </data>
   <data name="CodeOptimizationMethodDescription" xml:space="preserve">
-    <value>Optimize this method</value>
+    <value>Optimize this method.</value>
     <comment>Optimize this method</comment>
   </data>
 </root>

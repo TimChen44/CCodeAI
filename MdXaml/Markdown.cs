@@ -15,6 +15,8 @@ using MdXaml.Plugins;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using Microsoft.VisualStudio.PlatformUI;
+using MdXaml.Controls;
 
 // I will not add System.Index and System.Range. There is not exist with net45.
 #pragma warning disable IDE0056
@@ -1458,7 +1460,7 @@ namespace MdXaml
 
         private Block CodeBlocksEvaluator(string? lang, string code)
         {
-            var txtEdit = new TextEditor();
+            var txtEdit = new ExtendTextEditor();
 
             lang = PreProcessLang(lang);
             if (!string.IsNullOrEmpty(lang))
@@ -1466,48 +1468,47 @@ namespace MdXaml
                 var highlight = HighlightingManager.Instance.GetDefinition(lang) ?? 
                     HighlightingManager.Instance.GetDefinitionByExtension("." + lang);
 
-                txtEdit.SetCurrentValue(TextEditor.SyntaxHighlightingProperty, highlight);
+                txtEdit.TextEditor.SetCurrentValue(TextEditor.SyntaxHighlightingProperty, highlight);
                 txtEdit.Tag = lang;
+                txtEdit.TextEditor.Tag = lang;
             }
 
             txtEdit.Text = code;
             txtEdit.HorizontalAlignment = HorizontalAlignment.Stretch;
-            txtEdit.IsReadOnly = true;
-            txtEdit.PreviewMouseWheel += (s, e) =>
-            {
-                if (e.Handled) return;
+            //txtEdit.PreviewMouseWheel += (s, e) =>
+            //{
+            //    if (e.Handled) return;
 
-                e.Handled = true;
+            //    e.Handled = true;
 
-                var isShiftDown = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
-                if (isShiftDown)
-                {
-                    // horizontal scroll
-                    var offset = txtEdit.HorizontalOffset;
-                    offset -= e.Delta;
-                    txtEdit.ScrollToHorizontalOffset(offset);
-                }
-                else
-                {
-                    // event bubbles
-                    var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
-                    {
-                        RoutedEvent = UIElement.MouseWheelEvent,
-                        Source = s,
-                    };
+            //    var isShiftDown = Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
+            //    if (isShiftDown)
+            //    {
+            //        // horizontal scroll
+            //        var offset = txtEdit.HorizontalOffset;
+            //        offset -= e.Delta;
+            //        txtEdit.ScrollToHorizontalOffset(offset);
+            //    }
+            //    else
+            //    {
+            //        // event bubbles
+            //        var eventArg = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+            //        {
+            //            RoutedEvent = UIElement.MouseWheelEvent,
+            //            Source = s,
+            //        };
 
-                    var parentObj = ((Control)s).Parent;
-                    if (parentObj is UIElement uielm)
-                    {
-                        uielm.RaiseEvent(eventArg);
-                    }
-                    else if (parentObj is ContentElement celem)
-                    {
-                        celem.RaiseEvent(eventArg);
-                    }
-                }
-            };
-
+            //        var parentObj = ((Control)s).Parent;
+            //        if (parentObj is UIElement uielm)
+            //        {
+            //            uielm.RaiseEvent(eventArg);
+            //        }
+            //        else if (parentObj is ContentElement celem)
+            //        {
+            //            celem.RaiseEvent(eventArg);
+            //        }
+            //    }
+            //};
 
             var result = new BlockUIContainer(txtEdit);
             if (CodeBlockStyle is not null)

@@ -127,7 +127,7 @@
     <value>询问AI中，请稍后...</value>
   </data>
   <data name="WhenDoubtAI" xml:space="preserve">
-    <value>When in doubt, ask AI.</value>
+    <value>遇事不决，问AI。</value>
   </data>
   <data name="CodeNote" xml:space="preserve">
     <value>```{{$extension}}
