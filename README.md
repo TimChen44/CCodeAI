@@ -58,6 +58,7 @@ You can also access CCodeAI's features by right-clicking in the editor.
 - [ ] More codefixes.
 - [ ] Use codex model to generatecode.
 - [ ] Code Completion whick like github copilot.
+- [ ] Provide annotation translation
 
 # Update Log
 
