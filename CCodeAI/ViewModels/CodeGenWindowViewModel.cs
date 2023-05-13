@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CCodeAI.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.KernelExtensions;
@@ -108,6 +109,12 @@ public partial class CodeGenWindowViewModel : ObservableObject
     {
         if (SelectedSemanticModel == null || string.IsNullOrWhiteSpace(Input))
         {
+            return;
+        }
+
+        if (AzureConfig.AllowCalls() == false)
+        {
+            Output = "超出使用次数限制，请配置自己的Azure账号。配置方法请参考：https://github.com/TimChen44/CCodeAI/issues";
             return;
         }
 

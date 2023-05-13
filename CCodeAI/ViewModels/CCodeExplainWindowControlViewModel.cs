@@ -3,6 +3,7 @@ using CCodeAI.Models;
 using CCodeAI.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using EnvDTE;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.AI.ChatCompletion;
 using Microsoft.SemanticKernel.KernelExtensions;
@@ -77,6 +78,16 @@ namespace CCodeAI.ViewModels
                 return;
             }
 
+            if (AzureConfig.AllowCalls() == false)
+            {
+                ChatDatas.Add(new ChatData()
+                {
+                    Content = "超出使用次数限制，请配置自己的Azure账号。配置方法请参考：https://github.com/TimChen44/CCodeAI/issues",
+                    Who = EWho.PlugIn
+                });
+                return;
+            }
+
             AiLoading();
             try
             {
@@ -128,6 +139,16 @@ namespace CCodeAI.ViewModels
             string extension,
             string semanticFuncation)
         {
+            if (AzureConfig.AllowCalls() == false)
+            {
+                ChatDatas.Add(new ChatData()
+                {
+                    Content = "超出使用次数限制，请配置自己的Azure账号。配置方法请参考：https://github.com/TimChen44/CCodeAI/issues",
+                    Who = EWho.PlugIn
+                });
+                return "超出使用次数限制，请配置自己的Azure账号。配置方法请参考：https://github.com/TimChen44/CCodeAI/issues";
+            }
+
             AiLoading();
 
             try
@@ -174,6 +195,16 @@ namespace CCodeAI.ViewModels
             string extension,
             ISKFunction semanticFuncation)
         {
+            if (AzureConfig.AllowCalls() == false)
+            {
+                ChatDatas.Add(new ChatData()
+                {
+                    Content = "超出使用次数限制，请配置自己的Azure账号。配置方法请参考：https://github.com/TimChen44/CCodeAI/issues",
+                    Who = EWho.PlugIn
+                });
+                return "超出使用次数限制，请配置自己的Azure账号。配置方法请参考：https://github.com/TimChen44/CCodeAI/issues";
+            }
+
             AiLoading();
 
             try
@@ -238,6 +269,7 @@ namespace CCodeAI.ViewModels
             }
 
         }
+
 
         [RelayCommand]
         private void Cancel()

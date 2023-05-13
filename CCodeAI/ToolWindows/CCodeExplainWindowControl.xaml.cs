@@ -20,6 +20,18 @@ namespace CCodeAI
         }
 
         public CCodeExplainWindowControlViewModel VM { get; }
+
+ 
+
+        private void SendFeedback_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/TimChen44/CCodeAI/issues");
+        }
+
+        private void TimChen44_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://space.bilibili.com/223212197");
+        }
     }
 
     public static class ItemsControlExtensions
