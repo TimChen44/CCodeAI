@@ -11,8 +11,8 @@ namespace CCodeAI
         public const string Name = "CCodeAI";
         public const string Description = @"Help you understand and optimize the code";
         public const string Language = "en-US";
-        public const string Version = "2023.509.5";
+        public const string Version = "2023.513.1";
         public const string Author = "TimChen";
-        public const string Tags = "";
+        public const string Tags = "ChatGPT, Copilot, OpenAI, GPT4, GPT, Copilot X, Github Copilot";
     }
 }

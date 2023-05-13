@@ -14,7 +14,7 @@ namespace CCodeAI
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(PackageGuids.CCodeAIString)]
     [ProvideToolWindow(typeof(CCodeExplainWindow.Pane))]
-    [ProvideOptionPage(typeof(ConfigOptions), "CCodeAI", "Endpoint", 0, 0, true)]
+    [ProvideOptionPage(typeof(ConfigOptions), "CCodeAI", "Config", 0, 0, true)]
     public sealed class CCodePackage : ToolkitPackage
     {
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
