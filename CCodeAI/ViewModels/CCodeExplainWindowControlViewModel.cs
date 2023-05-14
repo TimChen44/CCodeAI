@@ -82,7 +82,7 @@ namespace CCodeAI.ViewModels
             {
                 ChatDatas.Add(new ChatData()
                 {
-                    Content = "超出使用次数限制，请配置自己的Azure账号。配置方法请参考：https://github.com/TimChen44/CCodeAI/issues",
+                    Content = AzureConfig.OverLimitMsg,
                     Who = EWho.PlugIn
                 });
                 return;
@@ -143,10 +143,10 @@ namespace CCodeAI.ViewModels
             {
                 ChatDatas.Add(new ChatData()
                 {
-                    Content = "超出使用次数限制，请配置自己的Azure账号。配置方法请参考：https://github.com/TimChen44/CCodeAI/issues",
+                    Content = AzureConfig.OverLimitMsg,
                     Who = EWho.PlugIn
                 });
-                return "超出使用次数限制，请配置自己的Azure账号。配置方法请参考：https://github.com/TimChen44/CCodeAI/issues";
+                return AzureConfig.OverLimitMsg;
             }
 
             AiLoading();
@@ -199,10 +199,10 @@ namespace CCodeAI.ViewModels
             {
                 ChatDatas.Add(new ChatData()
                 {
-                    Content = "超出使用次数限制，请配置自己的Azure账号。配置方法请参考：https://github.com/TimChen44/CCodeAI/issues",
+                    Content = AzureConfig.OverLimitMsg,
                     Who = EWho.PlugIn
                 });
-                return "超出使用次数限制，请配置自己的Azure账号。配置方法请参考：https://github.com/TimChen44/CCodeAI/issues";
+                return AzureConfig.OverLimitMsg;
             }
 
             AiLoading();

@@ -20,18 +20,18 @@ public class KernelFactory
         {
             if (UseAzureOpenAI)
             {
-                c.AddAzureTextCompletionService(
-                    "ccode",
-                    "text-davinci-003",
-                    AzureConfig.Endpoint,
-                    AzureConfig.AppKey
-                    );
+                //c.AddAzureTextCompletionService(
+                //    "ccode",
+                //    "text-davinci-003",
+                //    AzureConfig.Endpoint,
+                //    AzureConfig.AppKey
+                //    );
                 c.AddAzureChatCompletionService(
                     "ccode",
                     "gpt-35-turbo",
                     AzureConfig.Endpoint,
                     AzureConfig.AppKey,
-                    false);
+                    true);
                 c.AddAzureTextEmbeddingGenerationService
                 (
                     "ada", 
