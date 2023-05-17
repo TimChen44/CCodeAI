@@ -371,8 +371,7 @@
                     Height="28"
                     Margin="5,0"
                     Click="SendFeedback_Click"
-                    Style="{StaticResource IconButton}"
-                    ToolTip="Open CodeGen Window">
+                    Style="{StaticResource IconButton}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center">Send Feedback</TextBlock>
                     </StackPanel>
@@ -383,8 +382,7 @@
                     Height="28"
                     Margin="5,0"
                     Click="TimChen44_Click"
-                    Style="{StaticResource IconButton}"
-                    ToolTip="Open CodeGen Window">
+                    Style="{StaticResource IconButton}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center">超超TimChen44</TextBlock>
                     </StackPanel>
