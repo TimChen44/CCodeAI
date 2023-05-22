@@ -53,15 +53,15 @@ public class KernelFactory
         .Build();
     }
 
-    public static async Task<string> InvokeCodeFuncationAsync(
-        string semanticFuncation,
+    public static async Task<string> InvokeCodeFunctionAsync(
+        string semanticFunction,
         string code,
         CancellationToken? cancellationToken = null,
         string extension = "csharp")
     {
         Init();
 
-        var explainFunc = SKernel.CreateSemanticFunction(semanticFuncation);
+        var explainFunc = SKernel.CreateSemanticFunction(semanticFunction);
 
         var context = SKernel.CreateNewContext();
         context.Variables["extension"] = extension;
