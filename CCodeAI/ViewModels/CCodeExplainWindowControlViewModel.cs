@@ -137,7 +137,7 @@ namespace CCodeAI.ViewModels
         public async Task<string> CodeSkillAsync(
             string code,
             string extension,
-            string semanticFuncation)
+            string semanticFunction)
         {
             if (AzureConfig.AllowCalls() == false)
             {
@@ -153,7 +153,7 @@ namespace CCodeAI.ViewModels
 
             try
             {
-                var explainFunc = SKernel.CreateSemanticFunction(semanticFuncation);
+                var explainFunc = SKernel.CreateSemanticFunction(semanticFunction);
 
                 var context = SKernel.CreateNewContext();
                 context.Variables["extension"] = extension;
@@ -193,7 +193,7 @@ namespace CCodeAI.ViewModels
         public async Task<string> CodeSkillAsync(
             string code,
             string extension,
-            ISKFunction semanticFuncation)
+            ISKFunction semanticFunction)
         {
             if (AzureConfig.AllowCalls() == false)
             {
@@ -214,7 +214,7 @@ namespace CCodeAI.ViewModels
                 context.Variables["culture"] = System.Globalization.CultureInfo.CurrentCulture.EnglishName;
 
                 _coreSkillcancellationTokenSource = new CancellationTokenSource();
-                var result = await semanticFuncation.InvokeAsync(code, context, cancel: _coreSkillcancellationTokenSource.Token);
+                var result = await semanticFunction.InvokeAsync(code, context, cancel: _coreSkillcancellationTokenSource.Token);
 
                 if (result.ErrorOccurred)
                 {

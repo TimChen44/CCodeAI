@@ -17,7 +17,7 @@ public class LocalSemanticFunctionModel
 
     #region Properties
     /// <summary>
-    /// Funcation Name
+    /// Function Name
     /// </summary>
     public string Name { get; }
 
@@ -27,7 +27,7 @@ public class LocalSemanticFunctionModel
     public string PathName { get; }
 
     /// <summary>
-    /// Funcation Description
+    /// Function Description
     /// </summary>
     public string Description { get; }
 

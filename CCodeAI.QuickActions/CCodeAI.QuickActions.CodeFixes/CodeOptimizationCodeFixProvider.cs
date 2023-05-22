@@ -65,8 +65,8 @@ public class CodeOptimizationCodeFixProvider : CodeFixProvider
         var sourceText = await document.GetTextAsync();
         var selectedText = sourceText.GetSubText(diagnosticSpan);
 
-        var resultCode = await KernelFactory.InvokeCodeFuncationAsync(
-            CodeOptimizationSemanticFuncation.CodeOptimize,
+        var resultCode = await KernelFactory.InvokeCodeFunctionAsync(
+            CodeOptimizationSemanticFunction.CodeOptimize,
             selectedText.ToString(),
             cancellationToken);
 
